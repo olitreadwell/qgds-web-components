@@ -227,16 +227,21 @@ $utils: (
     class: "pb",
     values: $_spacing,
   ),
-  "padding-start": (
+  "padding-left": (
     responsive: true,
     property: padding-inline-start,
-    class: "ps",
+    class: "pl",
     values: $_spacing,
   ),
-  "padding-end": (
+  "padding-right": (
     responsive: true,
     property: padding-inline-end,
-    class: "pe",
+    class: "pr",
     values: $_spacing,
+  ),
+  "overflow": (
+    property: overflow,
+    class: "overflow",
+    values: visible hidden clip scroll auto,
   ),
 );

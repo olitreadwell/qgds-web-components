@@ -99,19 +99,19 @@
 $palettes: ("default", "soft", "muted", "bold", "deep");
 
 @each $palette in $palettes {
-  :where(.qgds-content).qgds-palette-#{$palette} + :where(.qgds-content).qgds-palette-#{$palette} {
+  :where(.qgds-content.qgds-palette-#{$palette} + .qgds-content.qgds-palette-#{$palette}) {
     padding-block-start: 0;
   }
 }
 
-:where(.qgds-content):not([class*="qgds-palette-"]) + :where(.qgds-content):not([class*="qgds-palette-"]) {
+:where(.qgds-content:not([class*="qgds-palette-"]) + .qgds-content:not([class*="qgds-palette-"])) {
   padding-block-start: 0;
 }
 
-:where(.qgds-content).qgds-palette-default + :where(.qgds-content):not([class*="qgds-palette-"]) {
+:where(.qgds-content.qgds-palette-default + .qgds-content:not([class*="qgds-palette-"])) {
   padding-block-start: 0;
 }
 
-:where(.qgds-content):not([class*="qgds-palette-"]) + :where(.qgds-content).qgds-palette-default {
+:where(.qgds-content:not([class*="qgds-palette-"]) + .qgds-content.qgds-palette-default) {
   padding-block-start: 0;
 }
