@@ -9,3 +9,4 @@ export * from "./palettes";
 export * from "./file-type-helpers";
 export * from "./scrub-slot-content";
 export * from "./semantic-heading";
+export * from "./image-helper";
