@@ -6,6 +6,18 @@ import componentCSS from "./qgds-icon.styles.scss?inline";
 import { isMulticolourIcon } from "./icons-multicolour.js";
 import type { IconName } from "./icon-names";
 
+/**
+ * Size of icon as tshirt size.
+ *
+ * |key | value | |
+ * |---|---|---|
+ * |`xs`| 16px|
+ * |`sm`| 20px|
+ * |`md`| 24px | (default) |
+ * |`lg`| 32px|
+ * | `xl`| 40px |
+ * |`xxl`| 48px|
+ */
 export type IconSize = "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
 
 /**
@@ -18,8 +30,8 @@ export type IconSize = "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
  * @uikit https://www.figma.com/design/0mkS2SvlrITvPC4JTnF7RS/QGDS-Icon-library
  * @website https://www.designsystem.qld.gov.au/styles/iconography
  *
- * @attr {IconName} icon-id - The ID of the icon to display (e.g., "home", "alert-success").
- * @attr {IconSize} size - The size of the icon. Options are "xs", "sm", "md", "lg", "xl", "xxl". Default is "md".
+ * @prop {IconName} icon-id - The ID of the icon to display (e.g., "home", "alert-success").
+ * @prop {IconSize} [size="md"] - The tshirt size of the icon.
  * @attr {string} aria-label - The aria-label for the icon for accessibility.
  *
  * @cssprop --qgds-icon-color - The color of single-colour icons (applies to mask-image icons).
@@ -38,13 +50,20 @@ export class QGDSIcon extends LitElement {
   @property({ type: String, useDefault: true })
   size: IconSize = "md";
 
-  @property({ type: String, attribute: "aria-label" })
+  @property({ type: String, attribute: "aria-label", reflect: true })
   ariaLabel: string = "";
 
   static styles = [resetStyles, unsafeCSS(componentCSS)];
 
   private get isMulticolour(): boolean {
     return this.iconId ? isMulticolourIcon(this.iconId) : false;
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+
+    this.role ??= this.ariaLabel ? "img" : null;
+    this.ariaHidden ??= this.ariaLabel ? null : "true";
   }
 
   render() {
@@ -55,10 +74,10 @@ export class QGDSIcon extends LitElement {
 
     return html`
       <span
-        style="--qgds-icon-svg: var(--qgds-icon-${this
-          .iconId}); --_qgds-icon-size: var(--qgds-icon-size, var(--qgds-icon-size-${this.size}))"
+        style="
+          --qgds-icon-svg: var(--qgds-icon-${this.iconId}); 
+          --_qgds-icon-size: var(--qgds-icon-size, var(--qgds-icon-size-${this.size}))"
         class="${classMap(classes)}"
-        aria-label="${this.ariaLabel || "icon"}"
       ></span>
     `;
   }

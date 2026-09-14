@@ -31,6 +31,7 @@ export default meta;
 
 export const Default: Story = {
   args: {
+    heading: "Callout heading",
     "default-slot": "<p>This is an important callout message.</p>",
   },
 };
