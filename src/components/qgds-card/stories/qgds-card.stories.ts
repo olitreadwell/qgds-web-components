@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/web-components";
 import { html } from "lit";
 import { unsafeHTML } from "lit/directives/unsafe-html.js";
-import { palettes } from "../../../utils/palettes";
+import { palettes, exampleImages } from "../../../utils";
 
 import { chromaticModes } from "../../../../.storybook/modes";
 import { withEventActions } from "../../../../.storybook/storybook-helpers";
@@ -17,8 +17,6 @@ import "../qgds-card";
 // card-multiple-action.stories.ts
 
 const { args, argTypes, template } = getStorybookHelpers<QGDSCard>("qgds-card");
-
-const demoImageSrc = "https://picsum.photos/id/322/600/400";
 
 type Args = typeof args;
 type Story = StoryObj<Args>;
@@ -40,18 +38,8 @@ const meta: Meta<Args> = {
   render: (args) => renderPaletteCards(args),
   decorators: [
     withEventActions("qgds-click"),
-
-    (Story) => html`
-      <style>
-        qgds-card {
-          inline-size: clamp(320px, 100%, 440px);
-        }
-      </style>
-
-      <div style="display: flex; gap: 1rem; flex-wrap: wrap;">${Story()}</div>
-    `,
+    (Story) => html` <div class="qgds-cols qgds-cols-1 qgds-cols-2:md qgds-cols-4:lg">${Story()}</div> `,
   ],
-
   parameters: {
     eventAction: { name: "qgds-toggle" },
   },
@@ -102,7 +90,7 @@ export const NoAction_WithImage: Story = {
   render: (args) =>
     renderPaletteCards(args, {
       action: "none",
-      "image-src": demoImageSrc,
+      "image-src": exampleImages[4],
       "image-alt": "Placeholder image",
     }),
 };
@@ -116,7 +104,7 @@ export const NoAction_WithImageAndFooter: Story = {
       args,
       {
         action: "none",
-        "image-src": demoImageSrc,
+        "image-src": exampleImages[2],
         "image-alt": "Placeholder image",
       },
       html`
@@ -127,7 +115,7 @@ export const NoAction_WithImageAndFooter: Story = {
 };
 
 export const NoAction_EqualHeightGroup: Story = {
-  name: "Equal Height Group",
+  name: "Equal Height Row",
   args: {
     ...noActionArgs,
   },
@@ -135,11 +123,12 @@ export const NoAction_EqualHeightGroup: Story = {
     ${template(
       {
         ...args,
+
         action: "none",
         "is-equal-height": true,
       },
       html`
-        Card content introducing the topic or story. Short introductions are easier to scan.
+        Use an <kbd>is-equal-height</kbd> attribute on cards to ensure they all have the same height.
         <div slot="footer-text">Footer text</div>
       `
     )}
@@ -177,6 +166,36 @@ export const NoAction_EqualHeightGroup: Story = {
         Short card content
         <div slot="footer-text">Footer text</div>
       `
+    )}
+  `,
+};
+
+export const CardGrid: Story = {
+  name: "With Card Grid",
+  args: {
+    ...noActionArgs,
+    "image-src": exampleImages[0],
+    "image-alt": "Placeholder image",
+  },
+  render: (args) => html`
+    <!-- This example uses a wrapping .qgds-cols grid container to define responsive column layouts for the cards 
+      <div class="qgds-cols qgds-cols-1 qgds-cols-6:md qgds-cols-4:lg">
+        <list of qgds-card elements goes here>
+      </div>
+    -->
+    ${[
+      { heading: "Card one", palette: "default" },
+      { heading: "Card two", palette: "soft" },
+      { heading: "Card three", palette: "deep" },
+      { heading: "Card four", palette: "bold" },
+      { heading: "Card five", palette: "default" },
+      { heading: "Card six", palette: "muted" },
+      { heading: "Card six", palette: "deep" },
+      { heading: "Card six", palette: "default" },
+      { heading: "Card six", palette: "soft" },
+    ].map(
+      ({ heading, palette }) =>
+        html`${template({ ...args, heading, palette }, html`${unsafeHTML(String(args["default-slot"] ?? ""))}`)}`
     )}
   `,
 };

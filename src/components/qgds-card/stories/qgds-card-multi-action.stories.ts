@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/web-components";
 import { html } from "lit";
 import { unsafeHTML } from "lit/directives/unsafe-html.js";
-import { palettes } from "../../../utils/palettes";
+import { exampleImages, palettes } from "../../../utils";
 import { chromaticModes } from "../../../../.storybook/modes";
 import { withEventActions } from "../../../../.storybook/storybook-helpers";
 
@@ -14,8 +14,6 @@ const { args, argTypes, template } = getStorybookHelpers<QGDSCard>("qgds-card");
 
 type Args = typeof args;
 type Story = StoryObj<Args>;
-
-const demoImageSrc = "https://picsum.photos/id/206/600/400";
 
 const meta: Meta<Args> = {
   title: "Components/Card/Multiple Action Links",
@@ -31,14 +29,12 @@ const meta: Meta<Args> = {
   argTypes,
   decorators: [
     withEventActions("qgds-click"),
-    (Story) =>
-      html` <style>
-          qgds-card {
-            inline-size: clamp(320px, 100%, 440px);
-          }
-        </style>
-
-        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">${Story()}</div>`,
+    // Story-level `parameters.gridClass` overrides this wrapper's class; set it to `false` to suppress the wrapper entirely.
+    (Story, context) => {
+      const gridClass = context.parameters.gridClass as string | false | undefined;
+      if (gridClass === false) return html`${Story()}`;
+      return html` <div class="${gridClass ?? "qgds-cols qgds-cols-1 qgds-cols-2:md qgds-cols-4:lg"}">${Story()}</div>`;
+    },
   ],
 
   parameters: {
@@ -112,7 +108,7 @@ export const MultipleAction_WithImage: Story = {
       {
         action: "multiple",
         target: "_blank",
-        "image-src": demoImageSrc,
+        "image-src": exampleImages[4],
         "image-alt": "Placeholder image",
       },
       html`${defaultSlotContent(args)} ${footerTagsActionHTML}`
@@ -121,7 +117,7 @@ export const MultipleAction_WithImage: Story = {
 
 export const MultipleAction_FeatureCard: Story = {
   name: "Feature Card (Palettes)",
-  parameters: { ...chromaticModes },
+  parameters: { ...chromaticModes, gridClass: false },
   args: {
     ...multiActionArgs,
     "image-position": "start",
@@ -143,7 +139,7 @@ export const MultipleAction_FeatureCard: Story = {
           target: "_blank",
           layout: "feature",
           "image-position": imagePosition,
-          "image-src": demoImageSrc,
+          "image-src": exampleImages[5],
           "image-alt": "Placeholder image",
         },
         html`${defaultSlotContent(args)} ${footerTagsActionHTML}`
@@ -155,25 +151,13 @@ export const MultipleAction_FeatureCard: Story = {
           target: "_blank",
           layout: "feature",
           "image-position": imagePosition,
-          "image-src": demoImageSrc,
+          "image-src": exampleImages[6],
           "image-alt": "Placeholder image",
         },
         html`${defaultSlotContent(args)} ${footerLinksHTML}`
       )}
     `;
   },
-
-  decorators: [
-    (Story) => html`
-      <style>
-        qgds-card {
-          inline-size: 100%;
-        }
-      </style>
-
-      <div style="display: flex; flex-flow: column nowrap; gap: 1rem;">${Story()}</div>
-    `,
-  ],
 };
 
 export const MultipleAction_FeatureCard_AllPositions: Story = {
@@ -181,70 +165,55 @@ export const MultipleAction_FeatureCard_AllPositions: Story = {
   args: {
     ...multiActionArgs,
   },
+  parameters: { gridClass: "qgds-cols qgds-cols-1" },
   render: (args) => html`
-    <div style="display: grid; gap: 1rem; inline-size: min(100%, 1140px);">
-      ${template(
-        {
-          ...args,
-          action: "multiple",
-          target: "_blank",
-          layout: "feature",
-          "image-position": "start",
-          "image-src": demoImageSrc,
-          "image-alt": "Placeholder image",
-        },
-        html`${defaultSlotContent(args)} ${footerTagsActionHTML}`
-      )}
-      ${template(
-        {
-          ...args,
-          action: "multiple",
-          target: "_blank",
-          layout: "feature",
-          "image-position": "end",
-          "image-src": demoImageSrc,
-          "image-alt": "Placeholder image",
-        },
-        html`${defaultSlotContent(args)} ${footerTagsActionHTML}`
-      )}
-    </div>
-
-    <div style="display: grid; gap: 1rem; inline-size: min(100%, 1140px);">
-      ${template(
-        {
-          ...args,
-          action: "multiple",
-          target: "_blank",
-          layout: "feature",
-          "image-position": "start",
-          "image-src": demoImageSrc,
-          "image-alt": "Placeholder image",
-        },
-        html`${defaultSlotContent(args)} ${footerLinksHTML}`
-      )}
-      ${template(
-        {
-          ...args,
-          action: "multiple",
-          target: "_blank",
-          layout: "feature",
-          "image-position": "end",
-          "image-src": demoImageSrc,
-          "image-alt": "Placeholder image",
-        },
-        html`${defaultSlotContent(args)} ${footerLinksHTML}`
-      )}
-    </div>
+    ${template(
+      {
+        ...args,
+        action: "multiple",
+        target: "_blank",
+        layout: "feature",
+        "image-position": "start",
+        "image-src": exampleImages[7],
+        "image-alt": "Placeholder image",
+      },
+      html`${defaultSlotContent(args)} ${footerTagsActionHTML}`
+    )}
+    ${template(
+      {
+        ...args,
+        action: "multiple",
+        target: "_blank",
+        layout: "feature",
+        "image-position": "end",
+        "image-src": exampleImages[8],
+        "image-alt": "Placeholder image",
+      },
+      html`${defaultSlotContent(args)} ${footerTagsActionHTML}`
+    )}
+    ${template(
+      {
+        ...args,
+        action: "multiple",
+        target: "_blank",
+        layout: "feature",
+        "image-position": "start",
+        "image-src": exampleImages[4],
+        "image-alt": "Placeholder image",
+      },
+      html`${defaultSlotContent(args)} ${footerLinksHTML}`
+    )}
+    ${template(
+      {
+        ...args,
+        action: "multiple",
+        target: "_blank",
+        layout: "feature",
+        "image-position": "end",
+        "image-src": exampleImages[5],
+        "image-alt": "Placeholder image",
+      },
+      html`${defaultSlotContent(args)} ${footerLinksHTML}`
+    )}
   `,
-  decorators: [
-    (Story) => html`
-      <style>
-        qgds-card {
-          inline-size: 100%;
-        }
-      </style>
-
-      <div style="display: flex; flex-flow: column nowrap; gap: 1rem; inline-size: min(100%, 1140px);">${Story()}</div>
-    `,
-  ],
 };

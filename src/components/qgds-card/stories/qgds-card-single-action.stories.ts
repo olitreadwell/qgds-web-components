@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/web-components";
 import { html } from "lit";
 import { unsafeHTML } from "lit/directives/unsafe-html.js";
-import { palettes } from "../../../utils/palettes";
+import { palettes, exampleImages } from "../../../utils";
 import { chromaticModes } from "../../../../.storybook/modes";
 import { withEventActions } from "../../../../.storybook/storybook-helpers";
 
@@ -15,8 +15,6 @@ const { args, argTypes, template } = getStorybookHelpers<QGDSCard>("qgds-card");
 
 type Args = typeof args;
 type Story = StoryObj<Args>;
-
-const demoImageSrc = "https://picsum.photos/id/124/600/400";
 
 const defaultSlotContent = (args: Args) => html`${unsafeHTML(String(args["default-slot"] ?? ""))}`;
 
@@ -41,15 +39,12 @@ const meta: Meta<Args> = {
   argTypes,
   decorators: [
     withEventActions("qgds-click"),
-
-    (Story) =>
-      html` <style>
-          qgds-card {
-            inline-size: clamp(320px, 100%, 440px);
-          }
-        </style>
-
-        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">${Story()}</div>`,
+    // Story-level `parameters.gridClass` overrides this wrapper's class; set it to `false` to suppress the wrapper entirely.
+    (Story, context) => {
+      const gridClass = context.parameters.gridClass as string | false | undefined;
+      if (gridClass === false) return html`${Story()}`;
+      return html` <div class="${gridClass ?? "qgds-cols qgds-cols-1 qgds-cols-2:md qgds-cols-4:lg"}">${Story()}</div>`;
+    },
   ],
 
   parameters: {
@@ -104,7 +99,7 @@ export const SingleAction_WithImage: Story = {
       {
         action: "single",
         target: "_blank",
-        "image-src": demoImageSrc,
+        "image-src": exampleImages[2],
         "image-alt": "Placeholder image",
       },
       footerSlotContent(args)
@@ -128,7 +123,7 @@ export const SingleAction_ImageFooter: Story = {
       {
         action: "single",
         target: "_blank",
-        "image-src": demoImageSrc,
+        "image-src": exampleImages[7],
         "image-alt": "Placeholder image",
       },
       footerSlotContent(args)
