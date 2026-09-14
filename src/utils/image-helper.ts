@@ -1,5 +1,6 @@
 export const exampleImages = [
   "./src/img/example-01-vet.jpg",
+  "./src/img/example-01-vet-2x.jpg",
   "./src/img/example-02-working-phone-tablet.jpg",
   "./src/img/example-03-health-worker.jpg",
   "./src/img/example-04-diver-coral.jpg",
@@ -8,4 +9,7 @@ export const exampleImages = [
   "./src/img/example-07-couple-beach.jpg",
   "./src/img/example-08-couple-garden-tablet.jpg",
   "./src/img/example-09-adult-with-children.jpg",
+  "./src/img/example-10-decorative.jpg",
 ] as const;
+
+export const decorativeImages = ["./src/img/example-10-decorative.jpg"];
