@@ -60,7 +60,6 @@ Scoped CSS: qgds-card
     margin-block-start: -1px;
     margin-inline: -1px;
     display: none;
-    overflow: hidden;
 
     qgds-image {
       display: block;
@@ -123,6 +122,10 @@ Scoped CSS: qgds-card
     block-size: 100%;
     flex-flow: column nowrap;
     gap: 0.75rem;
+
+    slot {
+      display: inline-block;
+    }
 
     a,
     a:visited {
@@ -271,8 +274,8 @@ Scoped CSS: qgds-card
       }
 
       qgds-image {
-        --image-block-size: 100%; // host variable on qgds-image
-        --image-inline-size: 100%; // host variable on qgds-image
+        --image-block-size: calc(100% + 2px); // host variable on qgds-image
+        --image-inline-size: calc(100% + 2px); // host variable on qgds-image
         --_image-border-radius: 0 0 1.875rem 0; // Internal variable on cards compenent, allows API override
       }
 

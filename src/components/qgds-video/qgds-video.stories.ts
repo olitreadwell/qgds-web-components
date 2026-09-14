@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/web-components";
 import { getStorybookHelpers } from "@wc-toolkit/storybook-helpers";
 import { html } from "lit";
+import { exampleImages } from "../../utils";
 
 import "./qgds-video.js";
 import type { QGDSVideo } from "./qgds-video.js";
@@ -37,11 +38,7 @@ const meta: Meta<Args> = {
       options: ["16x9", "4x3", "1x1", "21x9"],
     },
   },
-  decorators: [
-    (story) => html`
-      <div style="max-width: 960px; margin: 1rem;">${story()}</div>
-    `,
-  ],
+  decorators: [(story) => html` <div style="max-width: 960px; margin: 1rem;">${story()}</div> `],
   render: (args) => template(args),
 };
 
@@ -55,7 +52,7 @@ export const Vimeo: Story = {
   args: {
     source: "vimeo",
     "video-id": "251763826",
-    thumbnail: "https://picsum.photos/seed/qgds-vimeo/1280/720",
+    thumbnail: exampleImages[2],
     duration: "5:00",
     "aspect-ratio": "4x3",
     caption: "Vimeo video embed example.",
@@ -67,7 +64,7 @@ export const Custom: Story = {
   args: {
     source: "custom",
     "video-id": "https://embed.ted.com/talks/lang/en/adam_grosser_a_mobile_fridge_for_vaccines",
-    thumbnail: "https://picsum.photos/seed/qgds-custom/1280/720",
+    thumbnail: exampleImages[4],
     duration: "3:17",
     caption: "Custom iframe video embed example.",
   },

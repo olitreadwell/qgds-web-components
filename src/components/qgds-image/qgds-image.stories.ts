@@ -6,6 +6,7 @@ import "./qgds-image.js";
 import type { QGDSImage } from "./qgds-image.js";
 
 import "../qgds-callout/qgds-callout.js";
+import { exampleImages, decorativeImages } from "../../utils";
 
 const { args, argTypes, template } = getStorybookHelpers<QGDSImage>("qgds-image");
 
@@ -18,7 +19,7 @@ const meta: Meta<Args> = {
   tags: ["autodocs"],
   args: {
     ...args,
-    src: "https://picsum.photos/seed/qgds-beach/600/400",
+    src: exampleImages[3],
     alt: "Placeholder image",
   },
   argTypes,
@@ -108,6 +109,7 @@ export const WithHotspot: Story = {
     aspect: "9:16",
     caption: "Image with hotspot positioning (focal point: 90%, 90%)",
     width: 400,
+    src: exampleImages[8],
   },
 };
 
@@ -122,7 +124,7 @@ export const NaturalDimensions: Story = {
 export const DecorativeImage: Story = {
   name: "Decorative Image",
   args: {
-    src: "https://fastly.picsum.photos/id/56/2880/1920.jpg?hmac=BIplhYgNZ9bsjPXYhD0xx6M1yPgmg4HtthKkCeJp6Fk",
+    src: decorativeImages[0],
     width: 600,
     decorative: true,
     aspect: "16:9",
@@ -183,7 +185,8 @@ export const WithLongDescription: Story = {
 export const ResponsiveImage: Story = {
   name: "Responsive Image (srcset)",
   args: {
-    srcset: "https://picsum.photos/seed/qgds-beach/600/400 1x, https://picsum.photos/seed/qgds-beach/1200/800 2x",
+    src: exampleImages[0],
+    srcset: exampleImages[0] + " 1x, " + exampleImages[1] + " 2x",
     sizes: "(max-width: 600px) 100vw, 600px",
     aspect: "3:2",
     caption: "Responsive image with srcset and sizes for different screen densities",
@@ -225,7 +228,7 @@ export const LazyLoading: Story = {
           ...args,
           aspect: "16:9",
           loading: "lazy",
-          src: `https://picsum.photos/seed/qgds-lazy-${i}/600/338`,
+          src: exampleImages[i + 1],
           caption: `Lazy-loaded image ${i}`,
         })}
       `
@@ -254,7 +257,7 @@ export const WithAlignment: Story = {
       <p>
         ${template({
           ...args,
-          src: "https://picsum.photos/seed/qgds-right/600/450",
+          src: exampleImages[7],
           align: "right",
           aspect: "4:3",
           width: 300,
@@ -292,7 +295,7 @@ export const ComplexAccessibility: Story = {
   render: (args: Args) =>
     html` ${template({
       ...args,
-      src: "https://www.ottsworld.com/wp-content/uploads/2014/06/GoldCoastBeach-3.jpg",
+      src: exampleImages[5],
       alt: "Gold Coast beachfront with high-rise buildings and sandy beach",
       ariaLabel:
         "Aerial photograph of Gold Coast showing pristine beach, turquoise ocean, and coastal high-rise developments",

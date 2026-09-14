@@ -7,7 +7,7 @@ import type { QGDSPromotionalPanel } from "./qgds-promotional-panel";
 import "./qgds-promotional-panel";
 import "../qgds-button/qgds-button";
 import "../qgds-call-to-action/qgds-call-to-action";
-import { palettes } from "../../utils";
+import { palettes, exampleImages } from "../../utils";
 import { ICON_NAMES } from "../qgds-icon/icon-names.js";
 const { args, argTypes, template } = getStorybookHelpers<QGDSPromotionalPanel>("qgds-promotional-panel");
 
@@ -31,7 +31,7 @@ const meta: Meta<Args> = {
   args: {
     ...args,
     variant: "indent-text",
-    "image-url": "https://picsum.photos/seed/qgds-beach/600/400",
+    "image-url": exampleImages[7],
     "image-description": "Promotional image",
     "content-alignment": "content-start",
     "icon-name": "home",
