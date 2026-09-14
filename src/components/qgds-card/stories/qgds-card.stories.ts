@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/web-components";
 import { html } from "lit";
 import { unsafeHTML } from "lit/directives/unsafe-html.js";
-import { palettes, exampleImages } from "../../../utils";
+import { palettes } from "../../../utils";
 
 import { chromaticModes } from "../../../../.storybook/modes";
-import { withEventActions } from "../../../../.storybook/storybook-helpers";
+import { withEventActions, imageHelper } from "../../../../.storybook/storybook-helpers";
 
 import { getStorybookHelpers } from "@wc-toolkit/storybook-helpers";
 import type { QGDSCard } from "../qgds-card";
@@ -90,7 +90,7 @@ export const NoAction_WithImage: Story = {
   render: (args) =>
     renderPaletteCards(args, {
       action: "none",
-      "image-src": exampleImages[4],
+      "image-src": imageHelper.getByID(4),
       "image-alt": "Placeholder image",
     }),
 };
@@ -104,7 +104,7 @@ export const NoAction_WithImageAndFooter: Story = {
       args,
       {
         action: "none",
-        "image-src": exampleImages[2],
+        "image-src": imageHelper.getByID(2),
         "image-alt": "Placeholder image",
       },
       html`
@@ -174,7 +174,7 @@ export const CardGrid: Story = {
   name: "With Card Grid",
   args: {
     ...noActionArgs,
-    "image-src": exampleImages[0],
+    "image-src": imageHelper.getByID(1),
     "image-alt": "Placeholder image",
   },
   render: (args) => html`

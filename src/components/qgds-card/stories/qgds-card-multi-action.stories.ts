@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/web-components";
 import { html } from "lit";
 import { unsafeHTML } from "lit/directives/unsafe-html.js";
-import { exampleImages, palettes } from "../../../utils";
+import { palettes } from "../../../utils";
 import { chromaticModes } from "../../../../.storybook/modes";
-import { withEventActions } from "../../../../.storybook/storybook-helpers";
+import { withEventActions, imageHelper } from "../../../../.storybook/storybook-helpers";
 
 import { getStorybookHelpers } from "@wc-toolkit/storybook-helpers";
 
@@ -108,7 +108,7 @@ export const MultipleAction_WithImage: Story = {
       {
         action: "multiple",
         target: "_blank",
-        "image-src": exampleImages[4],
+        "image-src": imageHelper.getByID(4),
         "image-alt": "Placeholder image",
       },
       html`${defaultSlotContent(args)} ${footerTagsActionHTML}`
@@ -139,7 +139,7 @@ export const MultipleAction_FeatureCard: Story = {
           target: "_blank",
           layout: "feature",
           "image-position": imagePosition,
-          "image-src": exampleImages[5],
+          "image-src": imageHelper.getByID(5),
           "image-alt": "Placeholder image",
         },
         html`${defaultSlotContent(args)} ${footerTagsActionHTML}`
@@ -151,7 +151,7 @@ export const MultipleAction_FeatureCard: Story = {
           target: "_blank",
           layout: "feature",
           "image-position": imagePosition,
-          "image-src": exampleImages[6],
+          "image-src": imageHelper.getByID(6),
           "image-alt": "Placeholder image",
         },
         html`${defaultSlotContent(args)} ${footerLinksHTML}`
@@ -174,7 +174,7 @@ export const MultipleAction_FeatureCard_AllPositions: Story = {
         target: "_blank",
         layout: "feature",
         "image-position": "start",
-        "image-src": exampleImages[7],
+        "image-src": imageHelper.getByID(7),
         "image-alt": "Placeholder image",
       },
       html`${defaultSlotContent(args)} ${footerTagsActionHTML}`
@@ -186,7 +186,7 @@ export const MultipleAction_FeatureCard_AllPositions: Story = {
         target: "_blank",
         layout: "feature",
         "image-position": "end",
-        "image-src": exampleImages[8],
+        "image-src": imageHelper.getByID(8),
         "image-alt": "Placeholder image",
       },
       html`${defaultSlotContent(args)} ${footerTagsActionHTML}`
@@ -198,7 +198,7 @@ export const MultipleAction_FeatureCard_AllPositions: Story = {
         target: "_blank",
         layout: "feature",
         "image-position": "start",
-        "image-src": exampleImages[4],
+        "image-src": imageHelper.getByID(4),
         "image-alt": "Placeholder image",
       },
       html`${defaultSlotContent(args)} ${footerLinksHTML}`
@@ -210,7 +210,7 @@ export const MultipleAction_FeatureCard_AllPositions: Story = {
         target: "_blank",
         layout: "feature",
         "image-position": "end",
-        "image-src": exampleImages[5],
+        "image-src": imageHelper.getByID(5),
         "image-alt": "Placeholder image",
       },
       html`${defaultSlotContent(args)} ${footerLinksHTML}`

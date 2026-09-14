@@ -3,11 +3,12 @@ import { html } from "lit";
 
 import { getStorybookHelpers } from "@wc-toolkit/storybook-helpers";
 import { chromaticModes } from "../../../.storybook/modes";
+import { imageHelper } from "../../../.storybook/storybook-helpers";
 import type { QGDSPromotionalPanel } from "./qgds-promotional-panel";
 import "./qgds-promotional-panel";
 import "../qgds-button/qgds-button";
 import "../qgds-call-to-action/qgds-call-to-action";
-import { palettes, exampleImages } from "../../utils";
+import { palettes } from "../../utils";
 import { ICON_NAMES } from "../qgds-icon/icon-names.js";
 const { args, argTypes, template } = getStorybookHelpers<QGDSPromotionalPanel>("qgds-promotional-panel");
 
@@ -31,7 +32,7 @@ const meta: Meta<Args> = {
   args: {
     ...args,
     variant: "indent-text",
-    "image-url": exampleImages[7],
+    "image-url": imageHelper.getByID(7),
     "image-description": "Promotional image",
     "content-alignment": "content-start",
     "icon-name": "home",

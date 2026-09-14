@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/web-components";
 import { html } from "lit";
 import { unsafeHTML } from "lit/directives/unsafe-html.js";
-import { palettes, exampleImages } from "../../../utils";
+import { palettes } from "../../../utils";
 import { chromaticModes } from "../../../../.storybook/modes";
-import { withEventActions } from "../../../../.storybook/storybook-helpers";
+import { withEventActions, imageHelper } from "../../../../.storybook/storybook-helpers";
 
 import { getStorybookHelpers } from "@wc-toolkit/storybook-helpers";
 import { ICON_NAMES, type IconName } from "../../qgds-icon/icon-names";
@@ -99,7 +99,7 @@ export const SingleAction_WithImage: Story = {
       {
         action: "single",
         target: "_blank",
-        "image-src": exampleImages[2],
+        "image-src": imageHelper.getByID(2),
         "image-alt": "Placeholder image",
       },
       footerSlotContent(args)
@@ -123,7 +123,7 @@ export const SingleAction_ImageFooter: Story = {
       {
         action: "single",
         target: "_blank",
-        "image-src": exampleImages[7],
+        "image-src": imageHelper.getByID(7),
         "image-alt": "Placeholder image",
       },
       footerSlotContent(args)

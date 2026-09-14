@@ -6,7 +6,7 @@ import "./qgds-image.js";
 import type { QGDSImage } from "./qgds-image.js";
 
 import "../qgds-callout/qgds-callout.js";
-import { exampleImages, decorativeImages } from "../../utils";
+import { imageHelper } from "../../../.storybook/storybook-helpers";
 
 const { args, argTypes, template } = getStorybookHelpers<QGDSImage>("qgds-image");
 
@@ -19,7 +19,7 @@ const meta: Meta<Args> = {
   tags: ["autodocs"],
   args: {
     ...args,
-    src: exampleImages[3],
+    src: imageHelper.getByID(3),
     alt: "Placeholder image",
   },
   argTypes,
@@ -109,7 +109,7 @@ export const WithHotspot: Story = {
     aspect: "9:16",
     caption: "Image with hotspot positioning (focal point: 90%, 90%)",
     width: 400,
-    src: exampleImages[8],
+    src: imageHelper.getByID(8),
   },
 };
 
@@ -124,7 +124,7 @@ export const NaturalDimensions: Story = {
 export const DecorativeImage: Story = {
   name: "Decorative Image",
   args: {
-    src: decorativeImages[0],
+    src: imageHelper.getByName("decorative"),
     width: 600,
     decorative: true,
     aspect: "16:9",
@@ -185,8 +185,8 @@ export const WithLongDescription: Story = {
 export const ResponsiveImage: Story = {
   name: "Responsive Image (srcset)",
   args: {
-    src: exampleImages[0],
-    srcset: exampleImages[0] + " 1x, " + exampleImages[1] + " 2x",
+    src: imageHelper.getByID(0),
+    srcset: imageHelper.getByID(0) + " 1x, " + imageHelper.getByID(1) + " 2x",
     sizes: "(max-width: 600px) 100vw, 600px",
     aspect: "3:2",
     caption: "Responsive image with srcset and sizes for different screen densities",
@@ -228,7 +228,7 @@ export const LazyLoading: Story = {
           ...args,
           aspect: "16:9",
           loading: "lazy",
-          src: exampleImages[i + 1],
+          src: imageHelper.getByID(i + 1),
           caption: `Lazy-loaded image ${i}`,
         })}
       `
@@ -257,7 +257,7 @@ export const WithAlignment: Story = {
       <p>
         ${template({
           ...args,
-          src: exampleImages[7],
+          src: imageHelper.getByID(7),
           align: "right",
           aspect: "4:3",
           width: 300,
@@ -295,7 +295,7 @@ export const ComplexAccessibility: Story = {
   render: (args: Args) =>
     html` ${template({
       ...args,
-      src: exampleImages[5],
+      src: imageHelper.getByID(5),
       alt: "Gold Coast beachfront with high-rise buildings and sandy beach",
       ariaLabel:
         "Aerial photograph of Gold Coast showing pristine beach, turquoise ocean, and coastal high-rise developments",

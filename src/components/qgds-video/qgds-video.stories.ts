@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/web-components";
 import { getStorybookHelpers } from "@wc-toolkit/storybook-helpers";
 import { html } from "lit";
-import { exampleImages } from "../../utils";
+import { imageHelper } from "../../../.storybook/storybook-helpers";
 
 import "./qgds-video.js";
 import type { QGDSVideo } from "./qgds-video.js";
@@ -52,10 +52,10 @@ export const Vimeo: Story = {
   args: {
     source: "vimeo",
     "video-id": "251763826",
-    thumbnail: exampleImages[2],
+    thumbnail: imageHelper.getByID(2),
     duration: "5:00",
     "aspect-ratio": "4x3",
-    caption: "Vimeo video embed example.",
+    caption: "Vimeo video embed example using a 4:3 aspect ratio.",
   },
 };
 
@@ -64,7 +64,7 @@ export const Custom: Story = {
   args: {
     source: "custom",
     "video-id": "https://embed.ted.com/talks/lang/en/adam_grosser_a_mobile_fridge_for_vaccines",
-    thumbnail: exampleImages[4],
+    thumbnail: imageHelper.getByID(4),
     duration: "3:17",
     caption: "Custom iframe video embed example.",
   },
