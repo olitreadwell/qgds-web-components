@@ -3,7 +3,8 @@ import { html } from "lit";
 import { unsafeHTML } from "lit/directives/unsafe-html.js";
 import { palettes } from "../../../utils";
 import { chromaticModes } from "../../../../.storybook/modes";
-import { withEventActions, imageHelper } from "../../../../.storybook/storybook-helpers";
+import { withEventActions } from "../../../../.storybook/storybook-helpers";
+import { imageHelper } from "../../../../.storybook/image-helpers";
 
 import { getStorybookHelpers } from "@wc-toolkit/storybook-helpers";
 
@@ -30,10 +31,8 @@ const meta: Meta<Args> = {
   decorators: [
     withEventActions("qgds-click"),
     // Story-level `parameters.gridClass` overrides this wrapper's class; set it to `false` to suppress the wrapper entirely.
-    (Story, context) => {
-      const gridClass = context.parameters.gridClass as string | false | undefined;
-      if (gridClass === false) return html`${Story()}`;
-      return html` <div class="${gridClass ?? "qgds-cols qgds-cols-1 qgds-cols-2:md qgds-cols-4:lg"}">${Story()}</div>`;
+    (Story) => {
+      return html` <div class="qgds-cols qgds-cols-12">${Story()}</div>`;
     },
   ],
 
@@ -68,8 +67,12 @@ const defaultSlotContent = (args: Args) => html`${unsafeHTML(String(args["defaul
 const renderPaletteCards = (
   args: Args,
   overrides: Partial<Args> = {},
-  slotContent: ReturnType<typeof html> = defaultSlotContent(args)
-) => html` ${Object.entries(palettes).map(([palette]) => template({ ...args, ...overrides, palette }, slotContent))} `;
+  slotContent: ReturnType<typeof html> = html`${unsafeHTML(String(args["default-slot"] ?? ""))}`
+) => {
+  const DEFAULT_CARD_CLASS = "qgds-span-12 qgds-span-6:md qgds-span-4:lg";
+  const baseArgs = { class: DEFAULT_CARD_CLASS, ...args, ...overrides };
+  return html` ${Object.entries(palettes).map(([palette]) => template({ ...baseArgs, palette }, slotContent))} `;
+};
 
 export const MultipleAction: Story = {
   name: "With Footer Tags",
@@ -133,28 +136,17 @@ export const MultipleAction_FeatureCard: Story = {
 
     return html`
       ${renderPaletteCards(
-        args,
         {
+          ...args,
+          class: "qgds-span-12",
           action: "multiple",
           target: "_blank",
           layout: "feature",
           "image-position": imagePosition,
-          "image-src": imageHelper.getByID(5),
+          "image-src": imageHelper.getByID(3),
           "image-alt": "Placeholder image",
         },
         html`${defaultSlotContent(args)} ${footerTagsActionHTML}`
-      )}
-      ${renderPaletteCards(
-        args,
-        {
-          action: "multiple",
-          target: "_blank",
-          layout: "feature",
-          "image-position": imagePosition,
-          "image-src": imageHelper.getByID(6),
-          "image-alt": "Placeholder image",
-        },
-        html`${defaultSlotContent(args)} ${footerLinksHTML}`
       )}
     `;
   },
@@ -165,11 +157,11 @@ export const MultipleAction_FeatureCard_AllPositions: Story = {
   args: {
     ...multiActionArgs,
   },
-  parameters: { gridClass: "qgds-cols qgds-cols-1" },
   render: (args) => html`
     ${template(
       {
         ...args,
+        class: "qgds-span-12",
         action: "multiple",
         target: "_blank",
         layout: "feature",
@@ -182,6 +174,7 @@ export const MultipleAction_FeatureCard_AllPositions: Story = {
     ${template(
       {
         ...args,
+        class: "qgds-span-12",
         action: "multiple",
         target: "_blank",
         layout: "feature",
@@ -194,6 +187,7 @@ export const MultipleAction_FeatureCard_AllPositions: Story = {
     ${template(
       {
         ...args,
+        class: "qgds-span-12",
         action: "multiple",
         target: "_blank",
         layout: "feature",
@@ -206,6 +200,7 @@ export const MultipleAction_FeatureCard_AllPositions: Story = {
     ${template(
       {
         ...args,
+        class: "qgds-span-12",
         action: "multiple",
         target: "_blank",
         layout: "feature",

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/web-components";
 import { getStorybookHelpers } from "@wc-toolkit/storybook-helpers";
 import { html } from "lit";
-import { imageHelper } from "../../../.storybook/storybook-helpers";
+import { imageHelper } from "../../../.storybook/image-helpers";
 
 import "./qgds-video.js";
 import type { QGDSVideo } from "./qgds-video.js";

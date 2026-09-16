@@ -4,7 +4,8 @@ import { unsafeHTML } from "lit/directives/unsafe-html.js";
 import { palettes } from "../../../utils";
 
 import { chromaticModes } from "../../../../.storybook/modes";
-import { withEventActions, imageHelper } from "../../../../.storybook/storybook-helpers";
+import { withEventActions } from "../../../../.storybook/storybook-helpers";
+import { imageHelper } from "../../../../.storybook/image-helpers";
 
 import { getStorybookHelpers } from "@wc-toolkit/storybook-helpers";
 import type { QGDSCard } from "../qgds-card";
@@ -25,7 +26,11 @@ const renderPaletteCards = (
   args: Args,
   overrides: Partial<Args> = {},
   slotContent: ReturnType<typeof html> = html`${unsafeHTML(String(args["default-slot"] ?? ""))}`
-) => html` ${Object.entries(palettes).map(([palette]) => template({ ...args, ...overrides, palette }, slotContent))} `;
+) => {
+  const DEFAULT_CARD_CLASS = "qgds-span-3";
+  const baseArgs = { class: DEFAULT_CARD_CLASS, ...args, ...overrides };
+  return html` ${Object.entries(palettes).map(([palette]) => template({ ...baseArgs, palette }, slotContent))} `;
+};
 
 const meta: Meta<Args> = {
   title: "Components/Card",
@@ -36,10 +41,7 @@ const meta: Meta<Args> = {
   },
   argTypes,
   render: (args) => renderPaletteCards(args),
-  decorators: [
-    withEventActions("qgds-click"),
-    (Story) => html` <div class="qgds-cols qgds-cols-1 qgds-cols-2:md qgds-cols-4:lg">${Story()}</div> `,
-  ],
+  decorators: [withEventActions("qgds-click"), (Story) => html` <div class="qgds-cols qgds-cols-12">${Story()}</div> `],
   parameters: {
     eventAction: { name: "qgds-toggle" },
   },
@@ -123,7 +125,6 @@ export const NoAction_EqualHeightGroup: Story = {
     ${template(
       {
         ...args,
-
         action: "none",
         "is-equal-height": true,
       },
@@ -174,13 +175,14 @@ export const CardGrid: Story = {
   name: "With Card Grid",
   args: {
     ...noActionArgs,
+    class: "qgds-span-12 qgds-span-6:md qgds-span-4:lg",
     "image-src": imageHelper.getByID(1),
     "image-alt": "Placeholder image",
   },
   render: (args) => html`
-    <!-- This example uses a wrapping .qgds-cols grid container to define responsive column layouts for the cards 
-      <div class="qgds-cols qgds-cols-1 qgds-cols-6:md qgds-cols-4:lg">
-        <list of qgds-card elements goes here>
+    <!-- This example uses a wrapping .qgds-cols-12 to define a 12 column grid container. Each <qgds-card> carries responive span classes to adapt to different screen sizes.
+      <div class="qgds-cols qgds-cols-12">
+        <qgds-card ... class="qgds-span-12 qgds-span-6:md qgds-span-4:lg">
       </div>
     -->
     ${[

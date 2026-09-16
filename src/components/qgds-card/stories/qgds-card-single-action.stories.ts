@@ -3,7 +3,8 @@ import { html } from "lit";
 import { unsafeHTML } from "lit/directives/unsafe-html.js";
 import { palettes } from "../../../utils";
 import { chromaticModes } from "../../../../.storybook/modes";
-import { withEventActions, imageHelper } from "../../../../.storybook/storybook-helpers";
+import { withEventActions } from "../../../../.storybook/storybook-helpers";
+import { imageHelper } from "../../../../.storybook/image-helpers";
 
 import { getStorybookHelpers } from "@wc-toolkit/storybook-helpers";
 import { ICON_NAMES, type IconName } from "../../qgds-icon/icon-names";
@@ -16,8 +17,6 @@ const { args, argTypes, template } = getStorybookHelpers<QGDSCard>("qgds-card");
 type Args = typeof args;
 type Story = StoryObj<Args>;
 
-const defaultSlotContent = (args: Args) => html`${unsafeHTML(String(args["default-slot"] ?? ""))}`;
-
 const footerSlotContent = (args: Args) => html`
   ${unsafeHTML(String(args["default-slot"] ?? ""))}
   ${String(args.footerText ?? "").trim().length > 0 ? html`<div slot="footer-text">${args.footerText}</div>` : ""}
@@ -26,8 +25,12 @@ const footerSlotContent = (args: Args) => html`
 const renderPaletteCards = (
   args: Args,
   overrides: Partial<Args> = {},
-  slotContent: ReturnType<typeof html> = defaultSlotContent(args)
-) => html` ${Object.entries(palettes).map(([palette]) => template({ ...args, ...overrides, palette }, slotContent))} `;
+  slotContent: ReturnType<typeof html> = html`${unsafeHTML(String(args["default-slot"] ?? ""))}`
+) => {
+  const DEFAULT_CARD_CLASS = "qgds-span-12 qgds-span-6:md qgds-span-4:lg";
+  const baseArgs = { class: DEFAULT_CARD_CLASS, ...args, ...overrides };
+  return html` ${Object.entries(palettes).map(([palette]) => template({ ...baseArgs, palette }, slotContent))} `;
+};
 
 const meta: Meta<Args> = {
   title: "Components/Card/Single Action Link",
@@ -39,11 +42,8 @@ const meta: Meta<Args> = {
   argTypes,
   decorators: [
     withEventActions("qgds-click"),
-    // Story-level `parameters.gridClass` overrides this wrapper's class; set it to `false` to suppress the wrapper entirely.
-    (Story, context) => {
-      const gridClass = context.parameters.gridClass as string | false | undefined;
-      if (gridClass === false) return html`${Story()}`;
-      return html` <div class="${gridClass ?? "qgds-cols qgds-cols-1 qgds-cols-2:md qgds-cols-4:lg"}">${Story()}</div>`;
+    (Story) => {
+      return html` <div class="qgds-cols qgds-cols-12">${Story()}</div>`;
     },
   ],
 

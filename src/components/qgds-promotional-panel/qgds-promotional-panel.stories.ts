@@ -3,7 +3,8 @@ import { html } from "lit";
 
 import { getStorybookHelpers } from "@wc-toolkit/storybook-helpers";
 import { chromaticModes } from "../../../.storybook/modes";
-import { imageHelper } from "../../../.storybook/storybook-helpers";
+import { imageHelper } from "../../../.storybook/image-helpers";
+
 import type { QGDSPromotionalPanel } from "./qgds-promotional-panel";
 import "./qgds-promotional-panel";
 import "../qgds-button/qgds-button";
