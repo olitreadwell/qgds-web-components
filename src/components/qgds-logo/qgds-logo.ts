@@ -1,5 +1,6 @@
+import DOMPurify from "dompurify";
 import { LitElement, html, nothing, unsafeCSS } from "lit";
-import { customElement, property } from "lit/decorators.js";
+import { customElement, property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { ifDefined } from "lit/directives/if-defined.js";
 import { unsafeSVG } from "lit/directives/unsafe-svg.js";
@@ -33,7 +34,7 @@ const presetLogos: Record<LogoPreset, string> = {
  * @prop {string}      alt                  - Accessible label for the preset COA SVG
  * @prop {string}      href                 - Optional URL. Wraps the COA image in a link
  * @prop {string}      aria-label           - Accessible label for the href link. Falls back to site-name
- * @prop {string}      custom-logo         - URL for a custom logo image (cobrand, endorsed, standalone)
+ * @prop {string}      custom-logo         - URL for a custom logo image (cobrand, endorsed, standalone). SVG files are rendered inline.
  * @prop {string}      custom-logo-alt     - Accessible label for the custom logo image
  *
  * @cssprop {color} --logo-divider-color  - Divider color used in cobrand variant
@@ -51,10 +52,50 @@ export class QGDSLogo extends LitElement {
   @property({ type: String, attribute: "aria-label" }) label = "";
   @property({ type: String, attribute: "custom-logo" }) customLogo = "";
   @property({ type: String, attribute: "custom-logo-alt" }) customLogoAlt = "";
+  @state() private customLogoSvg = "";
+  private customLogoRequest?: AbortController;
 
   // ─── Helpers ──────────────────────────────────────────────────────────────────
   private isPreset(value: string): value is LogoPreset {
     return value in presetLogos;
+  }
+
+  protected updated(changedProperties: Map<PropertyKey, unknown>) {
+    if (changedProperties.has("customLogo")) void this.loadCustomLogoSvg();
+  }
+
+  disconnectedCallback() {
+    this.customLogoRequest?.abort();
+    super.disconnectedCallback();
+  }
+
+  private async loadCustomLogoSvg() {
+    this.customLogoRequest?.abort();
+    this.customLogoSvg = "";
+
+    if (!/\.svg(?:[?#]|$)/i.test(this.customLogo)) return;
+
+    const request = new AbortController();
+    this.customLogoRequest = request;
+
+    try {
+      const response = await fetch(this.customLogo, { signal: request.signal });
+      if (!response.ok) return;
+
+      const source = await response.text();
+      const sanitizedSource = DOMPurify.sanitize(source, {
+        USE_PROFILES: { svg: true, svgFilters: true },
+        FORBID_TAGS: ["foreignObject"],
+      });
+      const document = new DOMParser().parseFromString(sanitizedSource, "image/svg+xml");
+      const svg = document.documentElement;
+
+      if (svg.localName === "svg" && !request.signal.aborted) {
+        this.customLogoSvg = new XMLSerializer().serializeToString(svg);
+      }
+    } catch (error) {
+      if (!(error instanceof DOMException && error.name === "AbortError")) this.customLogoSvg = "";
+    }
   }
 
   // ─── Render helpers ──────────────────────────────────────────────────────
@@ -77,7 +118,15 @@ export class QGDSLogo extends LitElement {
   private renderCustomLogo() {
     if (!this.customLogo) return nothing;
 
-    const image = html` <img src="${this.customLogo}" alt="${this.customLogoAlt}" /> `;
+    const image = this.customLogoSvg
+      ? html`<span class="custom-logo-svg" role="img" aria-label=${ifDefined(this.customLogoAlt || undefined)}
+          >${unsafeSVG(this.customLogoSvg)}</span
+        >`
+      : html`<img
+          src="${this.customLogo}"
+          alt="${this.customLogoAlt}"
+          aria-label=${ifDefined(this.customLogoAlt || undefined)}
+        />`;
 
     return html`
       <div part="custom-logo" class="logo-image-custom">
