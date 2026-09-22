@@ -100,7 +100,6 @@ export const AllVariantsStatic: Story = {
       logo="none"
       custom-logo="${sampleSlottedImageCcc}"
       custom-logo-alt="Crime and Corruption Commission"
-      style="--logo-color: #212121"
     ></qgds-logo>
   `,
   decorators: [
