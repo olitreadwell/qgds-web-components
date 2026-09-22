@@ -123,7 +123,7 @@ export class QGDSVideo extends LitElement {
       return html`<p class="video-no-source">A video has not been provided.</p>`;
     }
     const title =
-      this.title || this.source === "youtube"
+      this.videoTitle || this.source === "youtube"
         ? "YouTube video"
         : this.source === "vimeo"
           ? "Vimeo video"
