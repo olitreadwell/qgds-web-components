@@ -1,5 +1,5 @@
 import DOMPurify from "dompurify";
-import { LitElement, html, nothing, unsafeCSS } from "lit";
+import { LitElement, html, nothing, PropertyValues, unsafeCSS } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { ifDefined } from "lit/directives/if-defined.js";
@@ -52,31 +52,55 @@ export class QGDSLogo extends LitElement {
   @property({ type: String, attribute: "aria-label" }) label = "";
   @property({ type: String, attribute: "custom-logo" }) customLogo = "";
   @property({ type: String, attribute: "custom-logo-alt" }) customLogoAlt = "";
-  @state() private customLogoSvg = "";
-  private customLogoRequest?: AbortController;
+  @state() private _customLogoSvg = "";
+  private _customLogoRequest?: AbortController;
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this._customLogoRequest?.abort();
+  }
+
+  protected updated(changedProperties: PropertyValues<this>): void {
+    if (changedProperties.has("customLogo")) void this.loadCustomLogoSvg();
+  }
+
+  // ─── Root render ─────────────────────────────────────────────────────────
+
+  render() {
+    return html`
+      <div
+        part="base"
+        class=${classMap({
+          "qgds-logo": true,
+          "is-delivering": this.logo === "coa-delivering-for-qld",
+          "is-custom": this.customLogo,
+        })}
+      >
+        ${this.renderPresetLogo()} ${this.renderCustomLogo()}
+      </div>
+    `;
+  }
 
   // ─── Helpers ──────────────────────────────────────────────────────────────────
+
   private isPreset(value: string): value is LogoPreset {
     return value in presetLogos;
   }
 
-  protected updated(changedProperties: Map<PropertyKey, unknown>) {
-    if (changedProperties.has("customLogo")) void this.loadCustomLogoSvg();
-  }
-
-  disconnectedCallback() {
-    this.customLogoRequest?.abort();
-    super.disconnectedCallback();
-  }
-
   private async loadCustomLogoSvg() {
-    this.customLogoRequest?.abort();
-    this.customLogoSvg = "";
+    this._customLogoRequest?.abort();
+    this._customLogoSvg = "";
 
-    if (!/\.svg(?:[?#]|$)/i.test(this.customLogo)) return;
+    // Match URLs with SVG extension, optionally followed by a query string or fragment.
+    // Examples: brandlogo.svg
+    //           brandlogo.svg?v=12
+    //           brandlogo.svg#heading
+    //           brandlogo.SVG?v=12
+    const svgUrlPattern = /\.svg(?:[?#]|$)/i;
+    if (!svgUrlPattern.test(this.customLogo)) return;
 
     const request = new AbortController();
-    this.customLogoRequest = request;
+    this._customLogoRequest = request;
 
     try {
       const response = await fetch(this.customLogo, { signal: request.signal });
@@ -91,10 +115,10 @@ export class QGDSLogo extends LitElement {
       const svg = document.documentElement;
 
       if (svg.localName === "svg" && !request.signal.aborted) {
-        this.customLogoSvg = new XMLSerializer().serializeToString(svg);
+        this._customLogoSvg = new XMLSerializer().serializeToString(svg);
       }
     } catch (error) {
-      if (!(error instanceof DOMException && error.name === "AbortError")) this.customLogoSvg = "";
+      if (!(error instanceof DOMException && error.name === "AbortError")) this._customLogoSvg = "";
     }
   }
 
@@ -118,9 +142,9 @@ export class QGDSLogo extends LitElement {
   private renderCustomLogo() {
     if (!this.customLogo) return nothing;
 
-    const image = this.customLogoSvg
+    const image = this._customLogoSvg
       ? html`<span class="custom-logo-svg" role="img" aria-label=${ifDefined(this.customLogoAlt || undefined)}
-          >${unsafeSVG(this.customLogoSvg)}</span
+          >${unsafeSVG(this._customLogoSvg)}</span
         >`
       : html`<img
           src="${this.customLogo}"
@@ -133,23 +157,6 @@ export class QGDSLogo extends LitElement {
         ${this.href
           ? html`<a href="${this.href}" class="logo-link" aria-label=${ifDefined(this.label || undefined)}>${image}</a>`
           : image}
-      </div>
-    `;
-  }
-
-  // ─── Root render ─────────────────────────────────────────────────────────
-
-  render() {
-    return html`
-      <div
-        part="base"
-        class=${classMap({
-          "qgds-logo": true,
-          "is-delivering": this.logo === "coa-delivering-for-qld",
-          "is-custom": this.customLogo,
-        })}
-      >
-        ${this.renderPresetLogo()} ${this.renderCustomLogo()}
       </div>
     `;
   }
