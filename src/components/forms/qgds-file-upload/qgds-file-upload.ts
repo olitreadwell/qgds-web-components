@@ -363,7 +363,7 @@ export class QGDSFileUpload extends QGDSFormField {
     // Else file is good to go.
     return {
       status: "ready",
-      message: `File ready for upload - ${readableFileSize(file.size)}`,
+      message: `File ready for upload \u2013 ${readableFileSize(file.size)}`, // thats an endash
       uuid,
     };
   }
