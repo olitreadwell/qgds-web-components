@@ -58,13 +58,19 @@ ul,
 ol {
   padding-inline-start: 1rem;
 
-  li {
+  & > li,
+  & li {
     margin-block-start: var(--qgds-vspace-list-item);
   }
 
-  & ul,
-  & ol {
-    padding-inline-start: 1rem;
+  & > li:first-child,
+  & li:first-child {
+    margin-block-start: 0;
+  }
+
+  /* stylelint-disable */
+  & > li * li:first-child {
+    margin-block-start: var(--qgds-vspace-list-item);
   }
 }
 
