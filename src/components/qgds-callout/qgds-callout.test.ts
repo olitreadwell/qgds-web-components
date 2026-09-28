@@ -57,16 +57,16 @@ describe("qgds-callout", () => {
     await element.updateComplete;
 
     let headingElement = element.shadowRoot?.querySelector(".heading");
-    expect(headingElement?.classList).toContain("qgds-heading-sm");
+    expect(headingElement?.classList).toContain("qgds-display-sm");
 
     element.headingLevel = "h2";
     await element.updateComplete;
     headingElement = element.shadowRoot?.querySelector(".heading");
-    expect(headingElement?.classList).toContain("qgds-heading-md");
+    expect(headingElement?.classList).toContain("qgds-display-md");
 
     element.headingSize = "xs";
     await element.updateComplete;
-    expect(headingElement?.classList).toContain("qgds-heading-xs");
+    expect(headingElement?.classList).toContain("qgds-display-xs");
   });
 
   it("renders HTML passed to the slot", async () => {
