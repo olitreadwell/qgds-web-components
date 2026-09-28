@@ -68,7 +68,7 @@ export class QGDSCallout extends LitElement {
     return html`
       <div class="callout">
         ${this.heading
-          ? semanticHeading(this.heading, this.headingLevel, `heading ${headingSizeClass || "qgds-display-sm"}`)
+          ? semanticHeading(this.heading, this.headingLevel, `heading ${headingSizeClass || "qgds-display-md"}`)
           : nothing}
         <div class="content">
           <slot></slot>

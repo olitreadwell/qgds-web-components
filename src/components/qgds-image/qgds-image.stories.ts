@@ -143,7 +143,7 @@ export const WithLongDescription: Story = {
   decorators: [
     (story) => {
       return html`
-        <div style="display: flex; flex-direction: column; gap: 1rem; width: 600px">
+        <div class="qgds-content">
           <p>Complex images like charts need detailed descriptions for accessibility:</p>
           ${story()}
           <qgds-callout heading="Detailed Description:" heading-level="h3">
@@ -243,7 +243,6 @@ export const WithAlignment: Story = {
       <p>
         ${template({
           ...args,
-          src: imageHelper.getByID(7),
           align: "right",
           aspect: "4:3",
           width: 300,
