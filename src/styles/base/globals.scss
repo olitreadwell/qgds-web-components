@@ -38,8 +38,8 @@
 
   // Font sizes (for larger screens)
   @include m.lg-up() {
-    --qgds-font-size-xl: #{f.remify($typography-font-size-xl)};
-    --qgds-font-size-xxl: #{f.remify($typography-font-size-xxl)};
+    --qgds-font-size-xl: #{f.remify($typography-font-size-xl-mobile)};
+    --qgds-font-size-xxl: #{f.remify($typography-font-size-xxl-mobile)};
   }
 
   // Line heights
@@ -48,7 +48,7 @@
   --qgds-line-height-none: #{$typography-line-height-none};
 
   // Font weights
-  --qgds-font-weight-default: #{$typography-font-weight-default};
+  --qgds-font-weight-normal: #{$typography-font-weight-normal};
   --qgds-font-weight-semibold: #{$typography-font-weight-semibold};
   --qgds-font-weight-bold: #{$typography-font-weight-bold};
 
@@ -92,6 +92,7 @@ body {
   margin: 0;
   font-size: var(--qgds-font-size-sm, 1rem);
   font-family: var(--qgds-font-family);
+  font-weight: var(--qgds-font-weight-normal);
   line-height: var(--qgds-line-height-default);
   color: var(--qgds-color-text-default);
   -webkit-font-smoothing: antialiased;

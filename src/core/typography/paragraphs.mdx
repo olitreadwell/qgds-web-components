@@ -21,35 +21,18 @@ import * as TypographyStories from "./typography.stories";
 <Description of={TypographyStories.Paragraph} />
 <Canvas of={TypographyStories.Paragraph} sourceState="shown" />
 
-## Abstract
-
-<Description of={TypographyStories.Abstract} />
-<Canvas of={TypographyStories.Abstract} sourceState="shown" />
-
-## Quote
-
-<Description of={TypographyStories.Quote} />
-<Canvas of={TypographyStories.Quote} sourceState="shown" />
-
-## Caption
-
-<Description of={TypographyStories.Caption} />
-<Canvas of={TypographyStories.Caption} sourceState="shown" />
-
 ## API Reference
 
 <Markdown>
   {`
 
-| CSS Class         | Description                                                                                                                        | Responsive options? |
-| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ------------------- |
-| \`qgds-abstract\` | Required Base class to apply grid system. Defaults to 4 columns on small screens, 6 on medium up (700px) and 12 on lg and up (992) | n/a                 |
-| \`qgds-quote\`    | Customise the number of columns in the grid, from 1-12.                                                                            | yes                 |
-| \`qgds-caption\`  | Base class to apply grid system. Required in addition to any additional modifiers.                                                 | no                  |
+| CSS Class         | Description                                                                                                                                                                                                            | Responsive? |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| \`qgds-abstract\` | The abstract also known as lead text is useful as a high level introduction used at the top of the page to briefly describe the content. This style of text should only be used once per page if possible.             | no          |
+| \`qgds-quote\`    | Quote text is a utility class to display quoted or cited text and distinguish it from regular content. However we recommend that you use a full <qgds-blockquote> component available in this library for this purpose | no          |
+| \`qgds-caption\`  | This is a text style for copy used alongside informational images, hint text, footnotes and references.                                                                                                                | no          |
 
 `}
 
 </Markdown>
 {/* <ArgTypes /> */}
-
-<TableOfContents title="In this section" headingSelector="h2:not(#table-of-contents)" className="docs-toc" />

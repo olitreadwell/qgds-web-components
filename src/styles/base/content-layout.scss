@@ -48,7 +48,7 @@
   }
 
   /* Zero top margin on the first in-flow child of a .qgds-content container */
-  > :is(*):first-child {
+  > :first-child {
     margin-block-start: 0;
   }
 

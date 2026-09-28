@@ -32,7 +32,7 @@
 
 /* prettier-ignore */
 .qgds-fw {
-  &-default { font-weight: var(--qgds-font-weight-default); }
+  &-normal { font-weight: var(--qgds-font-weight-normal); }
   &-semibold { font-weight: var(--qgds-font-weight-semibold); }
   &-bold { font-weight: var(--qgds-font-weight-bold); }
 }
