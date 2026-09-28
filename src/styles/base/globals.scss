@@ -52,6 +52,14 @@
   --qgds-font-weight-semibold: #{$typography-font-weight-semibold};
   --qgds-font-weight-bold: #{$typography-font-weight-bold};
 
+  // border radius
+  --qgds-border-radius-xs: #{$border-radius-xs};
+  --qgds-border-radius-sm: #{$border-radius-sm};
+  --qgds-border-radius-md: #{$border-radius-md};
+  --qgds-border-radius-lg: #{$border-radius-lg};
+  --qgds-border-radius-xl: #{$border-radius-xl};
+  --qgds-border-radius-xxl: #{$border-radius-xxl};
+
   // (qgds-content) region
   --qgds-content-max-width: 80ch;
 
