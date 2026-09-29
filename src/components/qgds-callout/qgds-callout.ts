@@ -46,17 +46,17 @@ export class QGDSCallout extends LitElement {
   }
 
   private static readonly headingClasses: Record<HeadingSize, string> = {
-    xs: "qgds-heading-xs",
-    sm: "qgds-heading-sm",
-    md: "qgds-heading-md",
+    xs: "qgds-display-xs",
+    sm: "qgds-display-sm",
+    md: "qgds-display-md",
   };
 
   private static readonly headingDefaults: Record<HeadingLevel, string> = {
-    h2: "qgds-heading-md",
-    h3: "qgds-heading-sm",
-    h4: "qgds-heading-xs",
-    h5: "qgds-heading-xs",
-    h6: "qgds-heading-xs",
+    h2: "qgds-display-md",
+    h3: "qgds-display-sm",
+    h4: "qgds-display-xs",
+    h5: "qgds-display-xs",
+    h6: "qgds-display-xs",
   };
 
   render() {
@@ -68,7 +68,7 @@ export class QGDSCallout extends LitElement {
     return html`
       <div class="callout">
         ${this.heading
-          ? semanticHeading(this.heading, this.headingLevel, `heading ${headingSizeClass || "qgds-heading-sm"}`)
+          ? semanticHeading(this.heading, this.headingLevel, `heading ${headingSizeClass || "qgds-display-md"}`)
           : nothing}
         <div class="content">
           <slot></slot>

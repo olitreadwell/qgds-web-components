@@ -143,7 +143,7 @@ export const WithLongDescription: Story = {
   decorators: [
     (story) => {
       return html`
-        <div style="display: flex; flex-direction: column; gap: 1rem; width: 600px">
+        <div class="qgds-content">
           <p>Complex images like charts need detailed descriptions for accessibility:</p>
           ${story()}
           <qgds-callout heading="Detailed Description:" heading-level="h3">
@@ -223,7 +223,7 @@ export const LazyLoading: Story = {
 export const WithAlignment: Story = {
   name: "With Alignment",
   render: (args: Args) => html`
-    <div>
+    <div class="qgds-content">
       <h3>Left Aligned</h3>
       <p>
         ${template({
@@ -243,7 +243,6 @@ export const WithAlignment: Story = {
       <p>
         ${template({
           ...args,
-          src: imageHelper.getByID(7),
           align: "right",
           aspect: "4:3",
           width: 300,
@@ -263,11 +262,11 @@ export const ComplexAccessibility: Story = {
   decorators: [
     (story) => {
       return html`
-        <div style="display: flex; flex-direction: column; gap: 1rem;">
+        <div class="qgds-content">
           <h2>Accessible Complex Image Example</h2>
           <p>This example combines multiple accessibility features:</p>
           ${story()}
-          <qgds-callout heading="Detailed Image Description:" heading-level="h3">
+          <qgds-callout heading="Detailed Image Description:" heading-level="h3" heading-size="sm">
             <ul>
               <li>Wide golden sandy beach stretching along the coastline with beachgoers visible</li>
               <li>Modern high-rise buildings and resorts lining the beachfront creating a distinctive skyline</li>
