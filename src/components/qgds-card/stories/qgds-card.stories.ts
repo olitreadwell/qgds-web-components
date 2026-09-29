@@ -120,6 +120,7 @@ export const NoAction_EqualHeightGroup: Story = {
   name: "Equal Height Row",
   args: {
     ...noActionArgs,
+    class: "qgds-span-3",
   },
   render: (args) => html`
     ${template(
@@ -142,18 +143,6 @@ export const NoAction_EqualHeightGroup: Story = {
       html`
         Card content introducing the topic or story. Short introductions are easier to scan. This card has even more
         content than the others, so it will be the tallest of the three cards in this group.
-        <div slot="footer-text">Footer text</div>
-      `
-    )}
-    ${template(
-      {
-        ...args,
-        action: "none",
-        "is-equal-height": true,
-      },
-      html`
-        Card content introducing the topic or story. Short introductions are easier to scan. This card has more content
-        than the others, so it will be taller.
         <div slot="footer-text">Footer text</div>
       `
     )}

@@ -86,12 +86,6 @@ Scoped CSS: qgds-card
     padding-block: var(--_padding-wrap);
     padding-inline: var(--_padding-wrap);
     block-size: 100%;
-
-    --slotted-content-padding: 0 0 1rem 0;
-    --slotted-list-padding: 1rem;
-    --slotted-content-margin: 0;
-    --slotted-content-line-height: 1.5; /* Fallback for older browsers that don't support logical properties */
-    --slotted-last-child-padding-block-end: 0;
   }
 
   // Adjust layout for cards with arrow variant
