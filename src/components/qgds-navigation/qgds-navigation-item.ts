@@ -162,9 +162,9 @@ export class QGDSNavigationItem extends LitElement {
       } else if (node instanceof QGDSNavigationItem) {
         node.level = 2;
         node.role = "listitem";
-        if (node.isActive) {
+        if (node.isActive && this.variant === "vertical") {
           // Need to wait for parent to sync before checking variant
-          requestAnimationFrame(() => (this.isOpen = this.variant === "vertical"));
+          requestAnimationFrame(() => (this.isOpen = true));
         }
 
         this._numChildren++;
