@@ -477,6 +477,9 @@
   .mega-menu-header & {
     font-size: f.remify(16px);
     color: var(--qgds-color-text-default);
+  }
+
+  .mega-menu-link.is-heading + & {
     margin-block-start: f.remify(16px);
   }
 }
