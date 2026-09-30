@@ -8,6 +8,7 @@ import { withEventActions } from "../../../.storybook/storybook-helpers";
 import { QGDSNavigationItem } from "./qgds-navigation-item";
 import "./qgds-navigation-item";
 import { LG } from "../../styles/qgds-tokens/qgds-breakpoint";
+import { allModes } from "../../modes";
 
 const { args, argTypes, template } = getStorybookHelpers<QGDSNavigation>("qgds-navigation");
 const { args: _itemArgs, template: _itemTemplate } = getStorybookHelpers<QGDSNavigationItem>("qgds-navigation-item");
@@ -27,6 +28,11 @@ const meta: Meta<Args> = {
   argTypes,
   parameters: {
     layout: "fullscreen",
+    chromatic: {
+      modes: {
+        mobile: allModes.XXL,
+      },
+    },
   },
   decorators: [
     withEventActions([
