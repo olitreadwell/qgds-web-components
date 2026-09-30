@@ -124,6 +124,7 @@ export const With4Children: Story = {
   args: {
     label: "I have 4 children",
     href: "#",
+    ["is-open"]: true,
   },
   render: (args) => {
     return html`${template(
@@ -140,6 +141,7 @@ export const With5ChildrenAndDescription: Story = {
     "view-all-url": "#",
     description: loremIpsum,
     href: "#",
+    ["is-open"]: true,
   },
   render: (args) => {
     return html`${template(
