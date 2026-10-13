@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/web-components";
+import { allModes } from "../../../../.storybook/modes";
 
 import {
   BrandLogoOnlyDesktop as BrandLogoOnlyDesktopStory,
@@ -18,10 +19,17 @@ export const Mobile: StoryObj = {
   globals: {
     viewport: "MD",
   },
+  parameters: {
+    chromatic: {
+      modes: {
+        mobile: allModes.MD,
+      },
+    },
+  },
 };
 
 export default {
-  title: "Components/Header/Brands/Endorsed and Standalone brands/Brand Logo Only",
+  title: "Components/Header/Endorsed and Standalone brands/Brand Logo Only",
   component: "qgds-header",
   parameters: headerBrandParameters,
 } satisfies Meta;

@@ -5,12 +5,22 @@ import {
   headerBrandParameters,
 } from "./qgds-header-story-definitions";
 
-export const CoatOfArmsAndSiteName: StoryObj = {
+export const Desktop: StoryObj = {
   ...CoatOfArmsAndSiteNameStory,
+  globals: {
+    viewport: "LG",
+  },
+};
+
+export const Mobile: StoryObj = {
+  ...CoatOfArmsAndSiteNameStory,
+  globals: {
+    viewport: "MD",
+  },
 };
 
 export default {
-  title: "Components/Header/Brands/Sub-brand",
+  title: "Components/Header/Sub-brand/Coat of Arms and Site Name",
   component: "qgds-header",
   parameters: headerBrandParameters,
 } satisfies Meta;

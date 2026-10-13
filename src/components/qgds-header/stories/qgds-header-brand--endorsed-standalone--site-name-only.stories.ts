@@ -9,7 +9,7 @@ import {
 export const Desktop: StoryObj = {
   ...SiteNameOnlyDesktopStory,
   globals: {
-    viewport: "XL",
+    viewport: "LG",
   },
 };
 
@@ -21,7 +21,7 @@ export const Mobile: StoryObj = {
 };
 
 export default {
-  title: "Components/Header/Brands/Endorsed and Standalone brands/Site Name Only",
+  title: "Components/Header/Endorsed and Standalone brands/Site Name Only",
   component: "qgds-header",
   parameters: headerBrandParameters,
 } satisfies Meta;
