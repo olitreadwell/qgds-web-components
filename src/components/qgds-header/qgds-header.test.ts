@@ -1,10 +1,10 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { page } from "vitest/browser";
+import breakpoint from "../../styles/qgds-tokens/qgds-breakpoint";
 import "../qgds-attribution-bar/qgds-attribution-bar";
 import "../qgds-link/qgds-link";
 import "../qgds-search-input/qgds-search-input";
 import "../qgds-navigation/qgds-navigation";
-import breakpoint from "../../styles/qgds-tokens/qgds-breakpoint";
 import "./qgds-header";
 import type { QGDSHeader } from "./qgds-header";
 

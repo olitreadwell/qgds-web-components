@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/web-components";
+import { allModes } from "../../../../.storybook/modes";
 
 import { CoatOfArms as CoatOfArmsStory, headerBrandParameters } from "./qgds-header-story-definitions";
-import { allModes } from "../../../../.storybook/modes";
 
 export const Desktop: StoryObj = {
   ...CoatOfArmsStory,

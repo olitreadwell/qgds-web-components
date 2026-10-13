@@ -1,26 +1,34 @@
 import type { Meta, StoryObj } from "@storybook/web-components";
+import { allModes } from "../../../../.storybook/modes";
 
 import {
-  CoatOfArmsAndSiteName as CoatOfArmsAndSiteNameStory,
+  CoatOfArmsAndBrandLogo as CoatOfArmsAndBrandLogoStory,
   headerBrandParameters,
 } from "./qgds-header-story-definitions";
 
 export const Desktop: StoryObj = {
-  ...CoatOfArmsAndSiteNameStory,
+  ...CoatOfArmsAndBrandLogoStory,
   globals: {
     viewport: "LG",
   },
 };
 
 export const Mobile: StoryObj = {
-  ...CoatOfArmsAndSiteNameStory,
+  ...CoatOfArmsAndBrandLogoStory,
   globals: {
     viewport: "MD",
+  },
+  parameters: {
+    chromatic: {
+      modes: {
+        mobile: allModes.MD,
+      },
+    },
   },
 };
 
 export default {
-  title: "Components/Header/Co-brand/Coat of Arms and Site Name",
+  title: "Components/Header/Co-brand/Coat of Arms and Brand Logo",
   component: "qgds-header",
   parameters: headerBrandParameters,
 } satisfies Meta;

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/web-components";
+import { allModes } from "../../../../.storybook/modes";
 
 import {
   SiteNameOnlyDesktop as SiteNameOnlyDesktopStory,
@@ -17,6 +18,13 @@ export const Mobile: StoryObj = {
   ...SiteNameOnlyMobileStory,
   globals: {
     viewport: "MD",
+  },
+  parameters: {
+    chromatic: {
+      modes: {
+        mobile: allModes.MD,
+      },
+    },
   },
 };
 

@@ -12,13 +12,6 @@ export const Desktop: StoryObj = {
   globals: {
     viewport: "LG",
   },
-  parameters: {
-    chromatic: {
-      modes: {
-        mobile: allModes.LG,
-      },
-    },
-  },
 };
 
 export const Mobile: StoryObj = {
