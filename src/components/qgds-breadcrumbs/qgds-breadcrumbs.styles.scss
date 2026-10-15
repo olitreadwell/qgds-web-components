@@ -5,7 +5,7 @@
 // Public API: CSS custom properties that can be overridden from Light DOM
 // Example: qgds-breadcrumbs { --background: pink; }
 :host {
-  display: block;
+  display: flex;
 }
 
 .breadcrumbs {
