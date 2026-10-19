@@ -13,7 +13,7 @@
   --banner-min-height: 21.5rem;
   --grid-template-columns: repeat(4, 1fr);
   --grid-template-rows: auto;
-  --content-padding-block-start-mobile: #{tools.remify(20px)};
+  --content-padding-block-start-mobile: 1rem;
   --content-row: 1 / span 4;
   --content-cols: 1 / span 4;
   --image-cols: 1 / span 4;
@@ -166,24 +166,16 @@
     flex-direction: column;
     gap: tools.remify(20px);
     color: var(--qgds-color-text-default);
+    padding-block-start: var(--content-padding-block-start-mobile, 1rem);
 
     .default & {
       padding-block-start: 1rem;
     }
 
-    .basic &,
-    .advanced &,
-    .contained & {
-      padding-block-start: 1.5rem;
-    }
-
     @media (min-width: qgds-breakpoint.$md) {
       padding: 0;
 
-      .basic &,
-      .advanced &,
-      .default &,
-      .contained & {
+      .default & {
         padding: 0;
       }
     }
