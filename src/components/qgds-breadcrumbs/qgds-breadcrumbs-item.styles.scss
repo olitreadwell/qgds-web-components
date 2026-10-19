@@ -29,7 +29,7 @@
   font-size: 0.875rem;
   line-height: 1.25rem;
   display: none;
-  column-gap: #{f.remify(4px)};
+  column-gap: f.remify(4px);
   white-space: nowrap;
   inline-size: 100%;
   padding-block: var(--breadcrumbs-item-padding-block-start) var(--breadcrumbs-item-padding-block-end);
@@ -144,8 +144,8 @@
     min-inline-size: 0; // Allow long link text to shrink instead of pushing chevron icon (sibling item) out of the view
     // Add padding for the thicker text-underline (on hover), which overflow hidden would crop
     // The negative margin cancels it out so the layout height is unchanged.
-    padding-block-end: #{f.remify(2px)};
-    margin-block-end: #{f.remify(-2px)};
+    padding-block-end: f.remify(2px);
+    margin-block-end: f.remify(-2px);
 
     @media (min-width: qgds-breakpoint.$lg) {
       overflow: clip;
@@ -161,7 +161,7 @@
 // This is all the chevron icons except the one beside the dropdown button
 .chevron-icon {
   color: var(--qgds-color-action-secondary, #307edb);
-  margin-block-start: #{f.remify(2px)}; // to push the icon slightly lower than text - per figma
+  margin-block-start: f.remify(2px); // to push the icon slightly lower than text - per figma
   align-self: center;
   transform: rotate(180deg);
 
