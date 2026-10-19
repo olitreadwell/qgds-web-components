@@ -99,7 +99,8 @@
 }
 
 :host(.dropdown) {
-  --breadcrumbs-item-padding-block-start: #{f.remify(2px)};
+  --breadcrumbs-item-padding-block-start: 0;
+  --breadcrumbs-item-padding-block-end: 0;
 }
 
 :host(:first-child) {
