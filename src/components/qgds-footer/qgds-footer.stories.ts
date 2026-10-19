@@ -47,6 +47,51 @@ const meta: Meta<QGDSFooterStoryArgs> = {
 export default meta;
 type Story = StoryObj<QGDSFooterStoryArgs>;
 
+const siteLinks = html`
+  <qgds-link slot="footer-site-link" href="https://www.qld.gov.au/help" label="Help"></qgds-link>
+  <qgds-link slot="footer-site-link" href="https://www.qld.gov.au/copyright" label="Copyright"></qgds-link>
+  <qgds-link slot="footer-site-link" href="https://www.qld.gov.au/disclaimer" label="Disclaimer"></qgds-link>
+  <qgds-link slot="footer-site-link" href="https://www.qld.gov.au/privacy" label="Privacy"></qgds-link>
+  <qgds-link
+    slot="footer-site-link"
+    href="https://www.qld.gov.au/right-to-information"
+    label="Right to information"
+  ></qgds-link>
+  <qgds-link slot="footer-site-link" href="https://www.qld.gov.au/accessibility" label="Accessibility"></qgds-link>
+  <qgds-link
+    slot="footer-site-link"
+    href="https://smartjobs.qld.gov.au/"
+    label="Jobs in Queensland Government"
+  ></qgds-link>
+  <qgds-link slot="footer-site-link" href="https://www.qld.gov.au/languages" label="Other languages"></qgds-link>
+`;
+
+const socialLinks = html` <qgds-link
+    slot="footer-social-link"
+    href="https://www.facebook.com/QueenslandGovernment"
+    icon-name="facebook"
+    label="Facebook"
+  ></qgds-link>
+  <qgds-link
+    slot="footer-social-link"
+    href="https://www.linkedin.com/company/queensland-government"
+    icon-name="linkedin"
+    label="LinkedIn"
+  ></qgds-link>
+  <qgds-link slot="footer-social-link" href="https://twitter.com/qldgov" icon-name="x" label="X page"></qgds-link>
+  <qgds-link
+    slot="footer-social-link"
+    href="https://www.youtube.com/user/QueenslandGovt"
+    icon-name="youtube"
+    label="Youtube"
+  ></qgds-link>
+  <qgds-link
+    slot="footer-social-link"
+    href="https://www.instagram.com/Queensland/"
+    icon-name="instagram"
+    label="Instagram"
+  ></qgds-link>`;
+
 export const Default: Story = {
   args: {
     "contact-heading": "Contact us",
@@ -90,61 +135,10 @@ export const Default: Story = {
         ></qgds-button>
 
         <!-- Site Links -->
-        <qgds-link slot="footer-site-link" href="https://www.qld.gov.au/help" label="Help"></qgds-link>
-        <qgds-link slot="footer-site-link" href="https://www.qld.gov.au/legal/copyright" label="Copyright"></qgds-link>
-        <qgds-link
-          slot="footer-site-link"
-          href="https://www.qld.gov.au/legal/disclaimer"
-          label="Disclaimer"
-        ></qgds-link>
-        <qgds-link slot="footer-site-link" href="https://www.qld.gov.au/legal/privacy" label="Privacy"></qgds-link>
-        <qgds-link
-          slot="footer-site-link"
-          href="https://www.qld.gov.au/about/rights-accountability/right-to-information"
-          label="Right to information"
-        ></qgds-link>
-        <qgds-link
-          slot="footer-site-link"
-          href="https://www.qld.gov.au/help/accessibility"
-          label="Accessibility"
-        ></qgds-link>
-        <qgds-link
-          slot="footer-site-link"
-          href="https://smartjobs.qld.gov.au/"
-          label="Jobs in Queensland Government"
-        ></qgds-link>
-        <qgds-link
-          slot="footer-site-link"
-          href="https://www.qld.gov.au/help/languages"
-          label="Other languages"
-        ></qgds-link>
+        ${siteLinks}
 
         <!-- Social Links -->
-        <qgds-link
-          slot="footer-social-link"
-          href="https://www.facebook.com/QueenslandGovernment"
-          icon-name="facebook"
-          label="Facebook"
-        ></qgds-link>
-        <qgds-link
-          slot="footer-social-link"
-          href="https://www.linkedin.com/company/queensland-government"
-          icon-name="linkedin"
-          label="LinkedIn"
-        ></qgds-link>
-        <qgds-link slot="footer-social-link" href="https://twitter.com/qldgov" icon-name="x" label="X page"></qgds-link>
-        <qgds-link
-          slot="footer-social-link"
-          href="https://www.youtube.com/user/QueenslandGovt"
-          icon-name="youtube"
-          label="Youtube"
-        ></qgds-link>
-        <qgds-link
-          slot="footer-social-link"
-          href="https://www.instagram.com/Queensland/"
-          icon-name="instagram"
-          label="Instagram"
-        ></qgds-link>
+        ${socialLinks}
 
         <!-- Acknowledgement of Country -->
         <div slot="aoc">
@@ -207,34 +201,7 @@ export const Minimal: Story = {
         ></qgds-footer-contact-item>
 
         <!-- Site Links -->
-        <qgds-link slot="footer-site-link" href="https://www.qld.gov.au/help" label="Help"></qgds-link>
-        <qgds-link slot="footer-site-link" href="https://www.qld.gov.au/legal/copyright" label="Copyright"></qgds-link>
-        <qgds-link
-          slot="footer-site-link"
-          href="https://www.qld.gov.au/legal/disclaimer"
-          label="Disclaimer"
-        ></qgds-link>
-        <qgds-link slot="footer-site-link" href="https://www.qld.gov.au/legal/privacy" label="Privacy"></qgds-link>
-        <qgds-link
-          slot="footer-site-link"
-          href="https://www.qld.gov.au/about/rights-accountability/right-to-information"
-          label="Right to information"
-        ></qgds-link>
-        <qgds-link
-          slot="footer-site-link"
-          href="https://www.qld.gov.au/help/accessibility"
-          label="Accessibility"
-        ></qgds-link>
-        <qgds-link
-          slot="footer-site-link"
-          href="https://smartjobs.qld.gov.au/"
-          label="Jobs in Queensland Government"
-        ></qgds-link>
-        <qgds-link
-          slot="footer-site-link"
-          href="https://www.qld.gov.au/help/languages"
-          label="Other languages"
-        ></qgds-link>
+        ${siteLinks}
 
         <!-- Acknowledgement of Country -->
         <div slot="aoc">
@@ -292,61 +259,10 @@ export const WithCustomLinks: Story = {
         <qgds-link slot="footer-custom-link" href="/link-5" label="Custom Link 5"></qgds-link>
 
         <!-- Site Links -->
-        <qgds-link slot="footer-site-link" href="https://www.qld.gov.au/help" label="Help"></qgds-link>
-        <qgds-link slot="footer-site-link" href="https://www.qld.gov.au/legal/copyright" label="Copyright"></qgds-link>
-        <qgds-link
-          slot="footer-site-link"
-          href="https://www.qld.gov.au/legal/disclaimer"
-          label="Disclaimer"
-        ></qgds-link>
-        <qgds-link slot="footer-site-link" href="https://www.qld.gov.au/legal/privacy" label="Privacy"></qgds-link>
-        <qgds-link
-          slot="footer-site-link"
-          href="https://www.qld.gov.au/about/rights-accountability/right-to-information"
-          label="Right to information"
-        ></qgds-link>
-        <qgds-link
-          slot="footer-site-link"
-          href="https://www.qld.gov.au/help/accessibility"
-          label="Accessibility"
-        ></qgds-link>
-        <qgds-link
-          slot="footer-site-link"
-          href="https://smartjobs.qld.gov.au/"
-          label="Jobs in Queensland Government"
-        ></qgds-link>
-        <qgds-link
-          slot="footer-site-link"
-          href="https://www.qld.gov.au/help/languages"
-          label="Other languages"
-        ></qgds-link>
+        ${siteLinks}
 
         <!-- Social Links -->
-        <qgds-link
-          slot="footer-social-link"
-          href="https://www.facebook.com/QueenslandGovernment"
-          icon-name="facebook"
-          label="Facebook"
-        ></qgds-link>
-        <qgds-link
-          slot="footer-social-link"
-          href="https://www.linkedin.com/company/queensland-government"
-          icon-name="linkedin"
-          label="LinkedIn"
-        ></qgds-link>
-        <qgds-link slot="footer-social-link" href="https://twitter.com/qldgov" icon-name="x" label="X page"></qgds-link>
-        <qgds-link
-          slot="footer-social-link"
-          href="https://www.youtube.com/user/QueenslandGovt"
-          icon-name="youtube"
-          label="Youtube"
-        ></qgds-link>
-        <qgds-link
-          slot="footer-social-link"
-          href="https://www.instagram.com/Queensland/"
-          icon-name="instagram"
-          label="Instagram"
-        ></qgds-link>
+        ${socialLinks}
 
         <!-- Contact Buttons via contact-cta slot -->
         <qgds-button slot="contact-cta" label="Contact us" variant="secondary"></qgds-button>
