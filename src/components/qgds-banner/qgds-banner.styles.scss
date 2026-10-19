@@ -13,7 +13,7 @@
   --banner-min-height: 21.5rem;
   --grid-template-columns: repeat(4, 1fr);
   --grid-template-rows: auto;
-  --content-padding-block-start-mobile: 1.5rem;
+  --content-padding-block-start-mobile: #{tools.remify(20px)};
   --content-row: 1 / span 4;
   --content-cols: 1 / span 4;
   --image-cols: 1 / span 4;
@@ -23,6 +23,7 @@
   background-color: var(--qgds-color-background);
   position: relative;
   justify-content: center;
+  color: var(--qgds-color-text-heading);
 
   &.contained {
     @media (min-width: qgds-breakpoint.$xxl) {
@@ -163,7 +164,7 @@
   &-content {
     display: flex;
     flex-direction: column;
-    gap: var(--content-padding-block-start-mobile);
+    gap: tools.remify(20px);
     color: var(--qgds-color-text-default);
 
     .default & {
@@ -186,10 +187,20 @@
         padding: 0;
       }
     }
+    @media (min-width: qgds-breakpoint.$lg) {
+      gap: tools.remify(24px);
+    }
   }
 
   &-heading-wrapper {
     text-wrap: auto;
+    font-size: tools.remify(32px);
+    line-height: tools.remify(40px);
+
+    @media (min-width: qgds-breakpoint.$lg) {
+      font-size: tools.remify(40px);
+      line-height: tools.remify(52px);
+    }
 
     > * {
       display: block;
@@ -197,6 +208,7 @@
 
     &.block-type {
       font-size: tools.remify(28px);
+      line-height: tools.remify(36px);
 
       .has-background-image &,
       .has-hero-image & {
@@ -204,19 +216,21 @@
       }
 
       @media (min-width: qgds-breakpoint.$md) {
-        font-size: tools.remify(40px);
-
         .has-background-image &,
         .has-hero-image & {
           margin-block-start: 0;
         }
       }
 
+      @media (min-width: qgds-breakpoint.$lg) {
+        font-size: tools.remify(40px);
+        line-height: tools.remify(52px);
+      }
+
       > * {
         inline-size: fit-content;
-        line-height: tools.remify(52px);
-        padding-inline: 1.25rem;
-        padding-block: 0.5rem;
+        padding-inline: tools.remify(16px);
+        padding-block: tools.remify(8px);
         box-shadow: var(--qgds-elevation-1);
         border-inline-start: 4px solid var(--qgds-color-accent-design-accent);
       }
@@ -240,8 +254,13 @@
   }
 
   &-abstract {
-    font-size: 1.5rem;
-    line-height: 2rem;
+    font-size: tools.remify(20px);
+    line-height: tools.remify(28px);
+
+    @media (min-width: qgds-breakpoint.$lg) {
+      font-size: tools.remify(24px);
+      line-height: tools.remify(32px);
+    }
   }
 
   &-image-container {
