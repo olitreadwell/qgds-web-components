@@ -13,7 +13,7 @@
   --banner-min-height: 21.5rem;
   --grid-template-columns: repeat(4, 1fr);
   --grid-template-rows: auto;
-  --content-padding-block-start-mobile: 1.5rem;
+  --content-padding-block-start-mobile: 1rem;
   --content-row: 1 / span 4;
   --content-cols: 1 / span 4;
   --image-cols: 1 / span 4;
@@ -23,6 +23,7 @@
   background-color: var(--qgds-color-background);
   position: relative;
   justify-content: center;
+  color: var(--qgds-color-text-heading);
 
   &.contained {
     @media (min-width: qgds-breakpoint.$xxl) {
@@ -163,40 +164,38 @@
   &-content {
     display: flex;
     flex-direction: column;
-    gap: var(--content-padding-block-start-mobile);
+    gap: tools.remify(20px);
     color: var(--qgds-color-text-default);
+    padding-block-start: var(--content-padding-block-start-mobile, 1rem);
 
     .default & {
       padding-block-start: 1rem;
     }
 
-    .basic &,
-    .advanced &,
-    .contained & {
-      padding-block-start: 1.5rem;
-    }
-
     @media (min-width: qgds-breakpoint.$md) {
       padding: 0;
 
-      .basic &,
-      .advanced &,
-      .default &,
-      .contained & {
+      .default & {
         padding: 0;
       }
+    }
+    @media (min-width: qgds-breakpoint.$lg) {
+      gap: tools.remify(24px);
     }
   }
 
   &-heading-wrapper {
     text-wrap: auto;
+    font-size: var(--qgds-font-size-xxl);
+    line-height: tools.snap-line-height(var(--qgds-line-height-heading, 1.25));
 
     > * {
       display: block;
     }
 
     &.block-type {
-      font-size: tools.remify(28px);
+      font-size: var(--qgds-font-size-xl);
+      line-height: tools.snap-line-height(var(--qgds-line-height-heading, 1.25));
 
       .has-background-image &,
       .has-hero-image & {
@@ -204,19 +203,21 @@
       }
 
       @media (min-width: qgds-breakpoint.$md) {
-        font-size: tools.remify(40px);
-
         .has-background-image &,
         .has-hero-image & {
           margin-block-start: 0;
         }
       }
 
+      @media (min-width: qgds-breakpoint.$lg) {
+        font-size: var(--qgds-font-size-xxl);
+        line-height: tools.snap-line-height(var(--qgds-line-height-heading, 1.25));
+      }
+
       > * {
         inline-size: fit-content;
-        line-height: tools.remify(52px);
-        padding-inline: 1.25rem;
-        padding-block: 0.5rem;
+        padding-inline: tools.remify(16px);
+        padding-block: tools.remify(8px);
         box-shadow: var(--qgds-elevation-1);
         border-inline-start: 4px solid var(--qgds-color-accent-design-accent);
       }
@@ -240,8 +241,15 @@
   }
 
   &-abstract {
-    font-size: 1.5rem;
-    line-height: 2rem;
+    // Quote typography - Figma
+    font-size: var(--qgds-font-size-md);
+    line-height: tools.snap-line-height(1.4);
+
+    @media (min-width: qgds-breakpoint.$lg) {
+      // Abstract typography - Figma
+      font-size: var(--qgds-font-size-lg);
+      line-height: tools.snap-line-height(var(--qgds-line-height-heading, 1.33));
+    }
   }
 
   &-image-container {
