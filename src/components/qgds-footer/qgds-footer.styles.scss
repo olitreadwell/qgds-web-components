@@ -13,9 +13,8 @@ Scoped CSS: qgds-footer
   --fg: var(--qgds-color-text-default);
   --footer-link-fg: var(--qgds-color-link-default);
   --footer-link-hover: var(--qgds-color-link-hover);
-  --footer-border-color: unset;
-  --footer-column-border-color: var(--qgds-color-border);
   --footer-logo-height: 48px;
+  --footer-logo-maxwidth: 256px;
 
   @include m.md-up() {
     --footer-padding-inline: 2rem;
@@ -52,37 +51,52 @@ Scoped CSS: qgds-footer
   margin-inline: var(--footer-outer-gutter);
   justify-self: center;
   row-gap: 0;
+  font-size: var(--qgds-font-size-xs);
+  line-height: #{f.snap-line-height()};
 
-  // Hide sections by default, and only show them if parent has the appropriate class (e.g., has-custom-links, has-site-links, has-social-links)
-  section {
-    &.section-custom-links,
-    &.section-site-links,
-    &.section-social-links {
-      display: none;
+  ::slotted(qgds-link) {
+    --qgds-color-link-visited: var(--qgds-color-link-default);
+    --qgds-color-underline-visited: var(--qgds-color-underline-default);
+  }
+
+  // Hide sections by default; show only the matching section when enabled.
+  :is(.section-custom-links, .section-site-links, .section-social-links) {
+    display: none;
+  }
+
+  &.has-custom-links .section-custom-links,
+  &.has-site-links .section-site-links {
+    display: block;
+  }
+
+  &.has-social-links .section-social-links {
+    display: flex;
+    align-items: center;
+
+    @include m.md-up() {
+      align-items: flex-start;
     }
   }
 
-  &.has-custom-links section.section-custom-links,
-  &.has-site-links section.section-site-links,
-  &.has-social-links section.section-social-links {
-    display: flex;
-  }
-
   .has-border {
-    border-block-end: 2px solid var(--footer-column-border-color);
+    border-block-end: 1px solid var(--qgds-color-border);
     border-inline-end: none;
 
     @include m.lg-up() {
       border-block-end: none;
-      border-inline-end: 2px solid var(--footer-column-border-color);
       padding-inline-end: var(--footer-padding-inline);
+
+      &:not(.section-contact) {
+        border-inline-end: 2px solid var(--qgds-color-border);
+      }
     }
   }
 
+  // Full width horizontal borders on mobile
   :where(hr) {
-    border-block-start: 2px solid var(--footer-column-border-color);
+    border-block-start: 1px solid var(--qgds-color-border-alt);
     border-block-end: none;
-    margin-inline: calc(var(--footer-outer-gutter) * -2);
+    margin-inline: calc(var(--footer-outer-gutter) * -1);
     margin-block: 0;
     overflow-x: hidden;
 
@@ -109,7 +123,7 @@ Scoped CSS: qgds-footer
     }
 
     /* Wrapper for buttons in the contact column */
-    .contact-cta-wrapper {
+    .contact-cta-wrapper.has-content {
       margin-inline-start: 0;
       margin-block-start: 2rem;
     }
@@ -118,7 +132,7 @@ Scoped CSS: qgds-footer
       flex-flow: row nowrap;
       justify-content: space-between;
 
-      .contact-cta-wrapper {
+      .contact-cta-wrapper.has-content {
         margin-block-start: 0;
         margin-inline-start: 2rem;
       }
@@ -127,7 +141,6 @@ Scoped CSS: qgds-footer
     .contact-statement {
       margin-block-end: 1rem;
       padding: 0;
-      line-height: #{f.snap-line-height(var(--qgds-line-height-default), 1.5)};
     }
   }
 
@@ -143,51 +156,40 @@ Scoped CSS: qgds-footer
     }
   }
 
-  // Link list wrappers (role="list")
-  // stylelint-disable-next-line
-  .flex-links {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-
-    ::slotted(qgds-link) {
-      display: block;
-      max-inline-size: 100%;
-      word-wrap: break-word;
-      overflow-wrap: break-word;
-      hyphens: auto;
-      white-space: normal;
-    }
-  }
-
   // stylelint-disable-next-line
   .section-site-links {
     padding-block-end: calc(var(--section-padding-block) + 0.5rem);
   }
 
   // These link lists are displayed in a grid layout on tablets/MD, and stacked on mobile/SM and desktop/LG
-  .custom-links-wrapper,
-  .site-links-wrapper {
+  :where(.contact-links-wrapper, .custom-links-wrapper, .site-links-wrapper) {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
     gap: 0.75rem;
     column-gap: 1.5rem;
 
-    @include m.md-up() {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
+    &.is-grid-list {
+      @include m.sm-up() {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      @include m.md-up() {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
 
-    @include m.lg-up() {
-      grid-template-columns: repeat(1, minmax(0, 1fr));
+      @include m.lg-up() {
+        grid-template-columns: repeat(1, 1fr);
+      }
     }
 
     ::slotted(qgds-link) {
       display: block;
+      inline-size: auto;
       max-inline-size: 100%;
       word-wrap: break-word;
       overflow-wrap: break-word;
       hyphens: auto;
       white-space: normal;
+      line-height: #{f.snap-line-height(1.5)};
     }
   }
 
@@ -211,13 +213,14 @@ Scoped CSS: qgds-footer
       }
     }
 
-    nav.social-links-wrapper {
+    .social-links-wrapper {
       display: flex;
       gap: 0.75rem;
 
       ::slotted(qgds-link) {
         --qgds-link-justify-content: flex-start;
         --qgds-link-label-display: none; // Hide link label by default
+        --qgds-icon-size: var(--qgds-icon-size-lg);
 
         max-inline-size: 100%;
       }
@@ -229,6 +232,7 @@ Scoped CSS: qgds-footer
 
         ::slotted(qgds-link) {
           --qgds-link-label-display: inline-block; // Show link label on desktop for better accessibility (assumes icons + text)
+          --qgds-icon-size: var(--qgds-icon-size-sm);
         }
       }
     }
@@ -237,12 +241,9 @@ Scoped CSS: qgds-footer
   // Acknowledgement of Country Section
   .section-aoc {
     .aoc-content {
-      line-height: #{f.snap-line-height(var(--qgds-line-height-default), 1.5)};
-
       ::slotted(*) {
         margin: 0;
         padding: 0;
-        line-height: inherit;
       }
 
       ::slotted(p) {
@@ -267,18 +268,17 @@ Scoped CSS: qgds-footer
     ::slotted(svg),
     ::slotted(qgds-logo) {
       block-size: var(--footer-logo-height);
-      inline-size: auto;
+      inline-size: clamp(200px, 100%, var(--footer-logo-maxwidth, 256px));
     }
   }
 
   .copyright {
     margin-block-start: 1.5rem;
-    font-weight: 600;
-    line-height: #{f.snap-line-height(var(--qgds-line-height-default), 1.5)};
   }
 
   .main-link-wrapper {
     margin-block-start: 1.5rem;
+    font-weight: var(--qgds-font-weight-semibold);
   }
 
   .empty,
