@@ -186,21 +186,16 @@
 
   &-heading-wrapper {
     text-wrap: auto;
-    font-size: tools.remify(32px);
-    line-height: tools.remify(40px);
-
-    @media (min-width: qgds-breakpoint.$lg) {
-      font-size: tools.remify(40px);
-      line-height: tools.remify(52px);
-    }
+    font-size: var(--qgds-font-size-xxl);
+    line-height: tools.snap-line-height(var(--qgds-line-height-heading, 1.25));
 
     > * {
       display: block;
     }
 
     &.block-type {
-      font-size: tools.remify(28px);
-      line-height: tools.remify(36px);
+      font-size: var(--qgds-font-size-xl);
+      line-height: tools.snap-line-height(var(--qgds-line-height-heading, 1.25));
 
       .has-background-image &,
       .has-hero-image & {
@@ -215,8 +210,8 @@
       }
 
       @media (min-width: qgds-breakpoint.$lg) {
-        font-size: tools.remify(40px);
-        line-height: tools.remify(52px);
+        font-size: var(--qgds-font-size-xxl);
+        line-height: tools.snap-line-height(var(--qgds-line-height-heading, 1.25));
       }
 
       > * {
@@ -246,12 +241,14 @@
   }
 
   &-abstract {
-    font-size: tools.remify(20px);
-    line-height: tools.remify(28px);
+    // Quote typography - Figma
+    font-size: var(--qgds-font-size-md);
+    line-height: tools.snap-line-height(1.4);
 
     @media (min-width: qgds-breakpoint.$lg) {
-      font-size: tools.remify(24px);
-      line-height: tools.remify(32px);
+      // Abstract typography - Figma
+      font-size: var(--qgds-font-size-lg);
+      line-height: tools.snap-line-height(var(--qgds-line-height-heading, 1.33));
     }
   }
 
