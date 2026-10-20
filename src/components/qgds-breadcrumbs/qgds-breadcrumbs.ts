@@ -165,7 +165,7 @@ export class QGDSBreadcrumbs extends LitElement {
           aria-expanded=${this._isMenuOpen}
           @click=${this._toggleMenu}
         >
-          <qgds-icon aria-label="more-horizontal" icon-id="more-horizontal" size="lg"></qgds-icon>
+          <qgds-icon aria-label="more-horizontal" icon-id="more-horizontal" size="md"></qgds-icon>
         </button>
         <qgds-icon aria-hidden="true" size="xs" icon-id="chevron-right" class="chevron-icon"></qgds-icon>
         <div class="dropdown-menu-wrapper" id="breadcrumbs-dropdown">

@@ -5,25 +5,29 @@
 :host {
   --breadcrumbs-item-padding-inline-start: 0;
   --breadcrumbs-item-padding-inline-end: 0;
-  --breadcrumbs-item-padding-block-start: #{f.remify(5px)};
-  --breadcrumbs-item-padding-block-end: #{f.remify(5px)};
+  --breadcrumbs-item-padding-block-start: 0;
+  --breadcrumbs-item-padding-block-end: 0;
 
   @media (min-width: qgds-breakpoint.$lg) {
-    --breadcrumbs-item-padding-inline-start: #{f.remify(5px)};
+    --breadcrumbs-item-padding-inline-start: #{f.remify(4px)};
+    --breadcrumbs-item-padding-block-start: #{f.remify(4px)};
+    --breadcrumbs-item-padding-block-end: #{f.remify(4px)};
   }
+
+  display: inline-flex;
 }
 
 :host([is-last]) {
   white-space: nowrap;
   overflow: hidden;
+  display: block;
   text-overflow: ellipsis;
-  display: inline-block;
   flex-shrink: 999999;
 }
 
 .breadcrumbs-item {
   font-size: 0.875rem;
-  line-height: 1.5rem;
+  line-height: 1.25rem;
   display: none;
   column-gap: f.remify(4px);
   white-space: nowrap;
@@ -34,12 +38,13 @@
   @media (min-width: qgds-breakpoint.$lg) {
     font-size: 1rem;
     display: inline-flex;
+    line-height: 1.5rem;
   }
 
   a {
     inline-size: 100%;
     display: block;
-    line-height: 1.5rem;
+    line-height: 1.25rem;
 
     &,
     &:visited {
@@ -50,6 +55,9 @@
     &:hover {
       text-decoration-color: currentColor;
       text-decoration-thickness: var(--qgds-link-decoration-thickness-hover, 2px);
+    }
+    @media (min-width: qgds-breakpoint.$lg) {
+      line-height: 1.5rem;
     }
   }
 
@@ -91,7 +99,8 @@
 }
 
 :host(.dropdown) {
-  --breadcrumbs-item-padding-block-start: #{f.remify(2px)};
+  --breadcrumbs-item-padding-block-start: 0;
+  --breadcrumbs-item-padding-block-end: 0;
 }
 
 :host(:first-child) {
@@ -99,7 +108,7 @@
 }
 
 :host(:nth-last-child(2)) {
-  --breadcrumbs-item-padding-inline-end: #{f.remify(5px)};
+  --breadcrumbs-item-padding-inline-end: #{f.remify(4px)};
 
   text-overflow: ellipsis;
   overflow-x: hidden;
@@ -134,9 +143,10 @@
     white-space: nowrap;
     overflow: hidden;
     min-inline-size: 0; // Allow long link text to shrink instead of pushing chevron icon (sibling item) out of the view
-    padding-block-end: f.remify(
-      2px
-    ); // Allow extra space for focus and hover states. Browsers crop out the focus outline and thicker underline on hover state due to overflow hidden
+    // Add padding for the thicker text-underline (on hover), which overflow hidden would crop
+    // The negative margin cancels it out so the layout height is unchanged.
+    padding-block-end: f.remify(2px);
+    margin-block-end: f.remify(-2px);
 
     @media (min-width: qgds-breakpoint.$lg) {
       overflow: clip;
@@ -144,6 +154,7 @@
 
     &.dropdown-item {
       padding-block: 0.75rem;
+      margin-block-end: 0;
     }
   }
 }
@@ -165,7 +176,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    display: inline-block;
+    display: block; // not inline-block: overflow hidden moves its baseline to the bottom edge, leaving a strut gap below
     flex-shrink: 999999;
     color: var(--qgds-color-text-lighter, #636363);
   }
