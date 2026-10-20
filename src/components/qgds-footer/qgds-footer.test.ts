@@ -152,7 +152,7 @@ describe("qgds-footer", () => {
     await element.updateComplete;
 
     // With custom and social links gone, AOC uses the wider span
-    expect(aocSection?.classList.contains("qgds-span-5:lg")).toBe(true);
+    expect(aocSection?.classList.contains("qgds-span-6:lg")).toBe(true);
   });
 });
 
