@@ -38,8 +38,8 @@
 
   // Font sizes (for larger screens)
   @include m.lg-up() {
-    --qgds-font-size-xl: #{f.remify($typography-font-size-xl-mobile)};
-    --qgds-font-size-xxl: #{f.remify($typography-font-size-xxl-mobile)};
+    --qgds-font-size-xl: #{f.remify($typography-font-size-xl-desktop)};
+    --qgds-font-size-xxl: #{f.remify($typography-font-size-xxl-desktop)};
   }
 
   // Line heights
