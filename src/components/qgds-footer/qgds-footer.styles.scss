@@ -73,7 +73,7 @@ Scoped CSS: qgds-footer
     display: flex;
     align-items: center;
 
-    @include m.md-up() {
+    @include m.lg-up() {
       align-items: flex-start;
     }
   }
