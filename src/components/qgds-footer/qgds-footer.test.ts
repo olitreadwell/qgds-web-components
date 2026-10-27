@@ -134,21 +134,13 @@ describe("qgds-footer", () => {
 
     expect(aocSection?.classList.contains("qgds-span-3:lg")).toBe(true);
 
-    // Remove custom links and social links to reduce the number of columns
-    const customSlot = element.shadowRoot?.querySelector<HTMLSlotElement>('slot[name="footer-custom-link"]');
-    const socialSlot = element.shadowRoot?.querySelector<HTMLSlotElement>('slot[name="footer-social-link"]');
-    const slotChanges = Promise.all(
-      [customSlot, socialSlot].map(
-        (slot) =>
-          new Promise<void>((resolve) => {
-            slot?.addEventListener("slotchange", () => resolve(), { once: true });
-          })
-      )
-    );
+    // Remove custom and social links (light DOM only) to reduce the number of columns
+    element.innerHTML = `
+      <qgds-link slot="footer-site-link" href="/privacy">Privacy</qgds-link>
+    `;
 
-    element.querySelector('[slot="footer-custom-link"]')?.remove();
-    element.querySelector('[slot="footer-social-link"]')?.remove();
-    await slotChanges;
+    // Allow slotchange events to fire and the resulting state update to render
+    await new Promise((resolve) => requestAnimationFrame(resolve));
     await element.updateComplete;
 
     // With custom and social links gone, AOC uses the wider span

@@ -5,6 +5,8 @@
 // Example: qgds-blockquote { --background: pink; }
 :host {
   --border: var(--qgds-color-accent-design-accent, #0078d4);
+
+  display: block;
 }
 
 // Component container
