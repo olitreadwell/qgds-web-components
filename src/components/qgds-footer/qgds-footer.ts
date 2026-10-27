@@ -63,7 +63,7 @@ export type QGDSFooterProps = InstanceType<typeof QGDSFooter>;
  */
 @customElement("qgds-footer")
 export class QGDSFooter extends LitElement {
-  static styles = [baseStyles, utilitiesStyles, unsafeCSS(componentCSS)];
+  static styles = [baseStyles, unsafeCSS(componentCSS), utilitiesStyles];
 
   // ==========================================================================
   // PROPERTIES

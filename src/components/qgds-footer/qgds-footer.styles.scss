@@ -220,7 +220,7 @@ Scoped CSS: qgds-footer
       ::slotted(qgds-link) {
         --qgds-link-justify-content: flex-start;
         --qgds-link-label-display: none; // Hide link label by default
-        --qgds-icon-size: var(--qgds-icon-size-lg);
+        --qgds-icon-size: var(--qgds-icon-size-lg, 2rem);
 
         max-inline-size: 100%;
       }
@@ -232,7 +232,7 @@ Scoped CSS: qgds-footer
 
         ::slotted(qgds-link) {
           --qgds-link-label-display: inline-block; // Show link label on desktop for better accessibility (assumes icons + text)
-          --qgds-icon-size: var(--qgds-icon-size-sm);
+          --qgds-icon-size: var(--qgds-icon-size-sm, 1.25rem);
         }
       }
     }
@@ -289,12 +289,5 @@ Scoped CSS: qgds-footer
   // Ensure proper link spacing in all link slots
   ::slotted(qgds-link[role="listitem"]) {
     display: block;
-  }
-
-  /* When all sections are present, we can reduce the padding and gaps to help with spacing */
-  @include m.lg-up() {
-    .is-crowded {
-      // placeholder
-    }
   }
 }

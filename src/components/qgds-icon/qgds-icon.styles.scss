@@ -1,11 +1,6 @@
 :host {
+  // QGDS Icon size variables are defined on global scope
   --qgds-icon-color: unset;
-  --qgds-icon-size-xs: 1rem;
-  --qgds-icon-size-sm: 1.25rem;
-  --qgds-icon-size-md: 1.5rem;
-  --qgds-icon-size-lg: 2rem;
-  --qgds-icon-size-xl: 2.5rem;
-  --qgds-icon-size-xxl: 3rem;
   --qgds-icon-size: inherit; // default size, can be overridden by size-specific variables or inline styles
 
   display: inline-block;
