@@ -129,7 +129,6 @@ export class QGDSFooter extends LitElement {
   // STATE (Private, reactive)
   // ==========================================================================
 
-  @state() private _hasContact = false; // Whether any contact info is provided (either links or phone/email)
   @state() private _hasContactLinks = false;
   @state() private _hasContactCta = false;
   @state() private _hasCustomLinks = false;
@@ -242,7 +241,6 @@ export class QGDSFooter extends LitElement {
 
     // has- class list assigned to footer parent to help grid rendering
     const footerClassList = classMap({
-      "has-contact-links": this._hasContactLinks,
       "has-custom-links": this._hasCustomLinks,
       "has-site-links": this._hasSiteLinks,
       "has-social-links": this._hasSocialLinks,
@@ -285,88 +283,81 @@ export class QGDSFooter extends LitElement {
     }
 
     return html`
-        <footer class="qgds-footer pb-16 py-64:lg qgds-cols ${footerClassList} ">
-          <!-- Footer Block Title (Site Name) -->
+      <footer class="qgds-footer pb-16 py-64:lg qgds-cols ${footerClassList} ">
+        <!-- Footer Block Title (Site Name) -->
 
-          <!-- Compensate for the negative margin on the parent div with equivalent padding, so that the heading is aligned with the content below -->
-          <div class="qgds-span-12 py-24 pb-32:lg pt-0:lg">
-          ${
-            this.footerHeading
-              ? html` ${semanticHeading(this.footerHeading, this.siteNameLevel, "footer-site-name")} `
-              : ""
-          }
+        <!-- Compensate for the negative margin on the parent div with equivalent padding, so that the heading is aligned with the content below -->
+        <div class="qgds-span-12 py-24 pb-32:lg pt-0:lg">
+          ${this.footerHeading
+            ? html` ${semanticHeading(this.footerHeading, this.siteNameLevel, "footer-site-name")} `
+            : ""}
+        </div>
+
+        <hr class="qgds-span-12" />
+
+        <section class="section-contact ${spanClasses.contact} py-24 py-0:lg has-border">
+          <div>
+            ${semanticHeading(this.contactHeading, this.headingLevel, "footer-heading")}
+            ${this.contactStatement ? html`<p class="contact-statement">${this.contactStatement}</p>` : nothing}
+
+            <div class="contact-links-wrapper">
+              <slot name="contact-link" @slotchange=${this._onContactLinkSlotChange}></slot>
+            </div>
           </div>
-          
-          <hr class="qgds-span-12">
 
-          <section class="section-contact ${spanClasses.contact} py-24 py-0:lg has-border">
-            <div>
-              ${semanticHeading(this.contactHeading, this.headingLevel, "footer-heading")}
-              ${this.contactStatement ? html`<p class="contact-statement">${this.contactStatement}</p>` : nothing}
+          <div class=${classMap({ "contact-cta-wrapper": true, "has-content": this._hasContactCta })}>
+            <slot name="contact-cta" @slotchange=${this._onContactCtaSlotChange}></slot>
+          </div>
+        </section>
 
-              <div class="contact-links-wrapper">
-                <slot name="contact-link" @slotchange=${this._onContactLinkSlotChange}></slot>
-              </div>
-            </div>
+        <!-- Column 2: Custom Links -->
+        <section class="section-custom-links ${spanClasses.customlinks} py-24 py-0:lg flex-column has-border">
+          ${semanticHeading(this.customLinksHeading, this.headingLevel, "footer-heading")}
+          <nav class="custom-links-wrapper is-grid-list" aria-label=${this.customLinksHeading}>
+            <slot name="footer-custom-link" @slotchange=${this._onCustomLinkSlotChange}></slot>
+          </nav>
+        </section>
 
-            <div class=${classMap({ "contact-cta-wrapper": true, "has-content": this._hasContactCta })}>
-              <slot name="contact-cta" @slotchange=${this._onContactCtaSlotChange}></slot>
-            </div>
-          </section>
+        <!-- Column 3: Site Links -->
+        <section class="section-site-links ${spanClasses.sitelinks} py-24 py-0:lg has-border">
+          ${semanticHeading(this.siteLinksHeading, this.headingLevel, "footer-heading")}
+          <nav class="site-links-wrapper is-grid-list" aria-label="${this.siteLinksHeading}">
+            <slot name="footer-site-link" @slotchange=${this._onSiteLinkSlotChange}></slot>
+          </nav>
+        </section>
 
-          
+        <!-- Column 4: Social Links -->
+        <section class="section-social-links ${spanClasses.sociallinks} py-24 py-0:lg has-border">
+          ${semanticHeading(this.socialHeading, this.headingLevel, "footer-heading")}
+          <nav class="social-links-wrapper" aria-label="${this.socialHeading}">
+            <slot name="footer-social-link" @slotchange=${this._onSocialLinkSlotChange}></slot>
+          </nav>
+        </section>
 
-          <!-- Column 2: Custom Links -->
-          <section class="section-custom-links ${spanClasses.customlinks} py-24 py-0:lg flex-column has-border">
-            ${semanticHeading(this.customLinksHeading, this.headingLevel, "footer-heading")}
-            <nav class="custom-links-wrapper is-grid-list" aria-label=${this.customLinksHeading}>
-              <slot name="footer-custom-link" @slotchange=${this._onCustomLinkSlotChange}></slot>
-            </nav>
-          </section>
+        <hr class="qgds-span-12" />
 
-          <!-- Column 3: Site Links -->
-          <section class="section-site-links ${spanClasses.sitelinks} py-24 py-0:lg has-border">
-            ${semanticHeading(this.siteLinksHeading, this.headingLevel, "footer-heading")}
-            <nav class="site-links-wrapper is-grid-list" aria-label="${this.siteLinksHeading}">
-              <slot name="footer-site-link" @slotchange=${this._onSiteLinkSlotChange}></slot>
-            </nav>
-          </section>
-          
+        <!-- Column 5: Acknowledgement of Country -->
+        <section class="section-aoc qgds-span-12 py-24 py-0:lg ${spanClasses.aoc} is-aoc">
+          ${semanticHeading(this.aocHeading, this.headingLevel, "footer-heading")}
 
-          <!-- Column 4: Social Links -->
-          <section class="section-social-links ${spanClasses.sociallinks} py-24 py-0:lg has-border">
-            ${semanticHeading(this.socialHeading, this.headingLevel, "footer-heading")}
-            <nav class="social-links-wrapper" aria-label="${this.socialHeading}">
-              <slot name="footer-social-link" @slotchange=${this._onSocialLinkSlotChange}></slot>
-            </nav>
-          </section>
-          
-          <hr class="qgds-span-12">
-          
-          <!-- Column 5: Acknowledgement of Country -->
-          <section class="section-aoc qgds-span-12 py-24 py-0:lg ${spanClasses.aoc} is-aoc">
-            ${semanticHeading(this.aocHeading, this.headingLevel, "footer-heading")}
+          <div class="${classMap({ "aoc-content": true, empty: !this._hasAocContent })}">
+            <slot name="aoc" @slotchange=${this._onAocSlotChange}></slot>
+          </div>
 
-            <div class="${classMap({ "aoc-content": true, empty: !this._hasAocContent })}">
-              <slot name="aoc" @slotchange=${this._onAocSlotChange}></slot>
-            </div>
+          <div class="${classMap({ "footer-logo": true, empty: this.hideFooterLogo })}">
+            <slot name="footer-logo" @slotchange=${this._onLogoSlotChange}>
+              <!-- Fallback logo if no logo provided in slot - ensures CoA is always present in footer -->
+              ${this.hideFooterLogo ? "" : unsafeHTML(footerLogoSVG)}
+            </slot>
+          </div>
 
-            <div class="${classMap({ "footer-logo": true, empty: this.hideFooterLogo })}">
-              <slot name="footer-logo" @slotchange=${this._onLogoSlotChange}>
-                <!-- Fallback logo if no logo provided in slot - ensures CoA is always present in footer -->
-                ${this.hideFooterLogo ? "" : unsafeHTML(footerLogoSVG)}
-              </slot>
-            </div>
+          ${this.copyrightLabel ? html`<p class="copyright">${this.copyrightLabel}</p>` : ""}
 
-            ${this.copyrightLabel ? html`<p class="copyright">${this.copyrightLabel}</p>` : ""}
-
-            <div class="${classMap({ "main-link-wrapper": true, empty: !this._hasMainLink })}">
-              <slot name="site-main-link" @slotchange=${this._onMainLinkSlotChange}></slot>
-            </div>
-          </section>
-
-          </footer>
-      </div>
+          <div class="${classMap({ "main-link-wrapper": true, empty: !this._hasMainLink })}">
+            <slot name="site-main-link" @slotchange=${this._onMainLinkSlotChange}></slot>
+          </div>
+        </section>
+      </footer>
     `;
   }
 }
